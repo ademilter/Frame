@@ -4,6 +4,10 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 
+import VueQuillEditor from 'vue-quill-editor'
+
+Vue.use(VueQuillEditor, {})
+
 Vue.config.productionTip = false
 
 new Vue({

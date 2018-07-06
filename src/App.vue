@@ -1,62 +1,90 @@
 <template lang="pug">
   .App
     .cols
+
       .col
-        .deneme(@click="change") {{ asd }}
-        .add(@click="add") ekle
-        div.note(
-        v-for="q in count"
-        :key="q")
-          quill
-      .col sfgdfg
+        .add(@click="addNote") ekle
+        Draggable(
+        v-model="notes"
+        :options="{ animation: 120, handle: '.handle' }")
+          note(
+          v-for="note in notes"
+          :key="note.id"
+          :note="note")
+
+      .col
+        .add(@click="addTodo") ekle
+        Draggable(
+        v-model="todos"
+        :options="{ animation: 120, handle: '.handle' }")
+          todo(
+          v-for="todo in todos"
+          :key="todo.id"
+          :todo="todo")
+
       .col asdsg asdasd
 </template>
 
 <script>
   import 'quill/dist/quill.core.css'
   import 'quill/dist/quill.bubble.css'
-  import quill from './components/quill'
+  import note from './components/note'
+  import todo from './components/todo'
+  import Draggable from 'vuedraggable'
 
   export default {
     name: 'App',
 
     components: {
-      quill
+      note,
+      todo,
+      Draggable
     },
 
     data () {
-      return {
-        count: []
-      }
+      return {}
     },
 
     computed: {
-      asd () {
-        return this.$store.getters.deneme
+      notes: {
+        get () {
+          return this.$store.getters.notes
+        },
+        set (value) {
+          this.$store.commit('updateNotes', value)
+        }
+      },
+      todos: {
+        get () {
+          return this.$store.getters.todos
+        },
+        set (value) {
+          this.$store.commit('updateTodos', value)
+        }
       }
     },
 
     methods: {
-      add () {
-        this.count.unshift(Date())
+      addNote () {
+        this.$store.commit('addNote')
       },
-      change () {
-        this.$store.commit('change')
+      addTodo () {
+        this.$store.commit('addTodo')
       }
     }
   }
 </script>
 
 <style>
-
   :root {
-    --deneme: 10px;
+    --br: 4px;
   }
 
   * {
     margin: 0;
     padding: 0;
     border: 0;
+    outline: 0;
   }
 
   .App {
@@ -94,5 +122,4 @@
       right: 0;
     }
   }
-
 </style>

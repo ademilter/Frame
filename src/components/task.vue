@@ -14,24 +14,32 @@
       v-model="status")
 
     .task-text
+
       // edit
-      textarea.text(
+      autosize(
+      ref="autosize"
+      rows="1"
+      @blur="isEdit = false"
+      @enter="isEdit = false"
       v-if="isEdit"
       v-model="text")
+
       // normal
       span.text(
       v-if="!isEdit"
       @click="isEdit = true")
         | {{ text }}
-      button.remove(
-      v-if="!isEdit"
-      type="button"
-      @click="remove") Sil
+        span.remove(
+        v-if="!isEdit"
+        @click="remove")
+          iconRemove
 </template>
 
 <script>
   import iconDrag from './icon-drag'
   import iconCheck from './icon-check'
+  import iconRemove from './icon-remove'
+  import autosize from './autosize'
 
   export default {
     name: 'Task',
@@ -45,12 +53,24 @@
 
     components: {
       iconDrag,
-      iconCheck
+      iconCheck,
+      iconRemove,
+      autosize
     },
 
     data () {
       return {
-        isEdit: false
+        isEdit: false,
+        textt: ''
+      }
+    },
+
+    watch: {
+      isEdit (value) {
+        if (!value) return
+        this.$nextTick().then(() => {
+          this.$refs.autosize.$el.focus()
+        })
       }
     },
 
@@ -112,7 +132,7 @@
       opacity: 0;
       position: absolute;
       left: 0;
-      top: 5px;
+      top: 4px;
     }
 
     &-checkbox {
@@ -121,12 +141,14 @@
       cursor: pointer;
       margin-right: 10px;
       flex-shrink: 0;
+      display: flex;
+      align-items: center;
       position: relative;
       width: 22px;
       height: 22px;
       color: white;
       border: 1px solid var(--color-lighter);
-      border-radius: 4px;
+      border-radius: var(--border-radius);
 
       &:hover {
         background-color: var(--color-shadow);
@@ -164,9 +186,20 @@
     }
 
     .remove {
-      margin-left: 10px;
-      transition: var(--transition);
+      margin-left: 8px;
       opacity: 0;
+      padding: 5px;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+
+      &:hover {
+        background-color: var(--color-shadow);
+      }
+
+      .icon {
+        width: 16px;
+        height: 16px;
+      }
     }
 
     &:hover {

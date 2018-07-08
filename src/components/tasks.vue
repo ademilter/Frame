@@ -2,7 +2,7 @@
   .col.tasks
 
     .col-header
-      h3.title TASKS
+      h3.title TASK
       button(
       class="btn --small new"
       type="button"
@@ -18,25 +18,33 @@
       ref="ps")
 
         .content(ref="content")
-          .empty-state(
-          v-if="!tasks.length")
-            | Çiçek gibi, yapılacak iş yok!
 
-          Draggable.active-tasks(
-          v-if="tasks.length"
-          v-model="tasks"
-          @start="onDragStart"
-          @end="onDragEnd"
-          :options="{ animation: 120, handle: '.handle' }")
+          .active-tasks
 
-            task(
-            v-for="task in tasks"
-            :key="task.id"
-            v-if="!task.status"
-            :class="{ 'completed' : task.status }"
-            :task="task")
+            //.empty-state(
+              v-if="!hasActiveTasks")
+                | Çiçek gibi, yapılacak iş yok!
+
+            Draggable(
+            v-if="hasActiveTasks"
+            v-model="tasks"
+            @start="onDragStart"
+            @end="onDragEnd"
+            :options="{ animation: 120, handle: '.handle' }")
+
+              task(
+              v-for="task in tasks"
+              :key="task.id"
+              v-if="!task.status"
+              :class="{ 'completed' : task.status }"
+              :task="task")
 
           .completed-tasks
+
+            //.empty-state(
+              v-if="!hasCompletedTasks")
+                | Çiçek gibi, yapılacak iş yok!
+
             task(
             v-for="task in tasks"
             :key="task.id"
@@ -67,9 +75,21 @@
       const h = this.$refs.scrollParent.clientHeight
       this.$refs.scrollParent.style.height = `${h}px`
       this.isShow = true
+
+      window.addEventListener('resize', this.scrollUpdate)
+    },
+
+    beforeDestroy () {
+      window.removeEventListener('resize', this.scrollUpdate)
     },
 
     computed: {
+      hasActiveTasks () {
+        return this.$store.getters.hasActiveTasks
+      },
+      hasCompletedTasks () {
+        return this.$store.getters.hasCompletedTasks
+      },
       tasks: {
         get () {
           return this.$store.state.tasks

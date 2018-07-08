@@ -65,6 +65,8 @@
     background-color: #E1E1E1;
     height: 100vh;
     overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
   }
 
   input,
@@ -72,6 +74,11 @@
   select,
   button {
     font: inherit;
+  }
+
+  svg {
+    display: inline-block;
+    vertical-align: middle;
   }
 
   button {
@@ -108,12 +115,12 @@
     width: 100%;
     height: 100vh;
     padding: 20px;
-    display: grid;
-    grid-template-rows: 120px 1fr;
-    grid-gap: 20px;
+    display: flex;
+    flex-direction: column;
   }
 
   .header {
+    height: 120px;
   }
 
   .cols {
@@ -180,6 +187,7 @@
 
     .ql-editor {
       padding: 20px 0;
+      line-height: inherit;
 
       &.ql-blank::before {
         left: 0;

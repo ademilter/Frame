@@ -24,6 +24,8 @@ export default new Vuex.Store({
   },
 
   getters: {
+    hasActiveTasks: state => state.tasks.some(o => !o.status),
+    hasCompletedTasks: state => state.tasks.some(o => o.status)
   },
 
   actions: {},

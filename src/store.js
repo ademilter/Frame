@@ -15,7 +15,7 @@ export default new Vuex.Store({
         toolbar: [
           ['bold', 'italic', 'underline', 'strike'],
           [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-          ['clean']
+          ['code', 'clean']
         ]
       },
       placeholder: 'New note...',

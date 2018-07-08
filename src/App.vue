@@ -8,7 +8,7 @@
       Tasks
       .Column-shadow
         .note
-          | Buraya yakında güzel şeyler gelecek.
+          | Buraya güzel şeyler gelecek.
 
 </template>
 

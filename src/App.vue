@@ -1,17 +1,19 @@
 <template lang="pug">
   .App
 
-    header.Header
+    HeaderView
 
     .Columns
       Notes
       Tasks
       .Column
+
 </template>
 
 <script>
   // import 'quill/dist/quill.core.css'
   import 'quill/dist/quill.bubble.css'
+  import Header from './components/header'
   import Notes from './components/notes'
   import Tasks from './components/tasks'
 
@@ -19,6 +21,7 @@
     name: 'App',
 
     components: {
+      HeaderView: Header,
       Notes,
       Tasks
     }
@@ -151,7 +154,7 @@
       padding: 30px;
 
       .title {
-        font-size: 24px;
+        font-size: 28px;
         line-height: 1;
       }
 

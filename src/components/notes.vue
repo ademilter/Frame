@@ -26,7 +26,7 @@
           note(
           v-for="note in notes"
           :key="note.id"
-          @onRemove="scrollUpdate"
+          @onScrollUpdate="scrollUpdate"
           :note="note")
 </template>
 

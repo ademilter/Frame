@@ -36,6 +36,7 @@
               v-for="task in tasks"
               :key="task.id"
               v-if="!task.status"
+              @onScrollUpdate="scrollUpdate"
               :class="{ 'completed' : task.status }"
               :task="task")
 
@@ -49,6 +50,7 @@
             v-for="task in tasks"
             :key="task.id"
             v-if="task.status"
+            @onScrollUpdate="scrollUpdate"
             :class="{ 'completed' : task.status }"
             :task="task")
 </template>

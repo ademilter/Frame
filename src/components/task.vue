@@ -85,6 +85,7 @@
             task: this.task,
             text: value
           })
+          this.$emit('onScrollUpdate')
         }
       },
       status: {
@@ -96,6 +97,7 @@
             task: this.task,
             status: value
           })
+          this.$emit('onScrollUpdate')
         }
       }
     },
@@ -103,6 +105,7 @@
     methods: {
       remove () {
         this.$store.commit('removeTasks', this.task)
+        this.$emit('onScrollUpdate')
       }
     }
   }

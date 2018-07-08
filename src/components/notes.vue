@@ -52,6 +52,12 @@
       const h = this.$refs.scrollParent.clientHeight
       this.$refs.scrollParent.style.height = `${h}px`
       this.isShow = true
+
+      window.addEventListener('resize', this.scrollUpdate)
+    },
+
+    beforeDestroy () {
+      window.removeEventListener('resize', this.scrollUpdate)
     },
 
     computed: {

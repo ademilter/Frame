@@ -6,7 +6,9 @@
     .Columns
       Notes
       Tasks
-      .Column
+      .Column-shadow
+        .note
+          | Buraya yakında güzel şeyler gelecek.
 
 </template>
 
@@ -181,6 +183,22 @@
 
     &:hover &-header .new {
       opacity: 1;
+    }
+
+    &-shadow {
+      height: 100%;
+      border: 4px dashed var(--color-shadow);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 50px;
+
+      .note {
+        text-align: center;
+        font-size: 18px;
+        color: var(--color-lighter);
+      }
     }
 
   }

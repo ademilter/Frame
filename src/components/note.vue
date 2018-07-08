@@ -5,8 +5,10 @@
     type="button")
       icon-drag
 
-    .options
-      .remove(@click="remove") sil
+    button.remove(
+    type="button"
+    @click="remove")
+      iconRemove
 
     quill-editor(
     v-model="content"
@@ -16,6 +18,7 @@
 
 <script>
   import iconDrag from './icon-drag'
+  import iconRemove from './icon-remove'
 
   export default {
     name: 'Note',
@@ -28,7 +31,8 @@
     },
 
     components: {
-      iconDrag
+      iconDrag,
+      iconRemove
     },
 
     data () {
@@ -50,13 +54,14 @@
     methods: {
       remove () {
         this.$store.commit('removeNote', this.note)
-        this.$emit('onRemove')
+        this.$emit('onScrollUpdate')
       },
       onEditorChange ({ quill, html }) {
         this.$store.commit('changeNote', {
           note: this.note,
           content: html
         })
+        this.$emit('onScrollUpdate')
       }
     }
   }
@@ -92,16 +97,38 @@
       cursor: ns-resize;
     }
 
-    &:hover .handle {
-      opacity: 1;
-      transform: translateX(0);
+    .remove {
+      opacity: 0;
+      padding: 5px;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      position: absolute;
+      top: 18px;
+      right: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -1px;
+      color: var(--color-light);
+
+      &:hover {
+        color: red;
+      }
+
+      .icon {
+        width: 16px;
+        height: 16px;
+      }
     }
 
-    .options {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 0;
+    &:hover {
+      .handle {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .remove {
+        opacity: 1;
+      }
     }
   }
 </style>

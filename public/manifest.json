@@ -1,7 +1,7 @@
 {
-  "name": "New Dashboard",
+  "name": "Frame",
   "version": "1.0",
-  "description": "-",
+  "description": "",
   "manifest_version": 2,
   "chrome_url_overrides": {
     "newtab": "index.html"

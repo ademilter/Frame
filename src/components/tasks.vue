@@ -172,6 +172,10 @@
           color: var(--color-light);
           font-size: var(--font-size-small);
         }
+
+        .remove {
+          margin-top: -2px;
+        }
       }
     }
 

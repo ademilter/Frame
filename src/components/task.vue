@@ -29,7 +29,8 @@
       v-if="!isEdit"
       @click="isEdit = true")
         | {{ text }}
-        span.remove(
+        button.remove(
+        type="button"
         v-if="!isEdit"
         @click="remove")
           iconRemove
@@ -187,15 +188,20 @@
     }
 
     .remove {
-      cursor: pointer;
-      margin-left: 8px;
+      margin-left: 6px;
       opacity: 0;
-      padding: 3px 5px;
+      padding: 5px;
       border-radius: var(--border-radius);
       transition: var(--transition);
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -1px;
+      color: var(--color-light);
 
       &:hover {
-        background-color: var(--color-shadow);
+        color: red;
       }
 
       .icon {

@@ -89,6 +89,7 @@
       position: absolute;
       left: 0;
       top: 19px;
+      cursor: ns-resize;
     }
 
     &:hover .handle {

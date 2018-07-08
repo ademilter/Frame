@@ -133,6 +133,7 @@
       position: absolute;
       left: 0;
       top: 4px;
+      cursor: ns-resize;
     }
 
     &-checkbox {
@@ -186,9 +187,10 @@
     }
 
     .remove {
+      cursor: pointer;
       margin-left: 8px;
       opacity: 0;
-      padding: 5px;
+      padding: 3px 5px;
       border-radius: var(--border-radius);
       transition: var(--transition);
 

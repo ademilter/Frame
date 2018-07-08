@@ -78,6 +78,7 @@
     }
 
     &.sortable-ghost {
+      background-color: #EEFAFD;
     }
 
     .handle {

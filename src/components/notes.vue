@@ -1,7 +1,7 @@
 <template lang="pug">
-  .col.notes
+  .Column.Notes
 
-    .col-header
+    .Column-header
       h3.title NOTE
       button(
       class="btn --small new"
@@ -10,7 +10,7 @@
         iconPlus
         span New
 
-    .col-body(ref="scrollParent")
+    .Column-body(ref="scrollParent")
       VuePerfectScrollbar(
       class="scroll-area"
       v-if="isShow"
@@ -91,10 +91,10 @@
 </script>
 
 <style>
-  .col.notes {
+  .Column.Notes {
     background-color: var(--color-note);
 
-    .col-header {
+    .Column-header {
       .new {
         background-color: var(--color-note-primary);
       }

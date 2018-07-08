@@ -20,6 +20,3 @@
     name: 'icon-check'
   }
 </script>
-
-<style>
-</style>

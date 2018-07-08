@@ -1,7 +1,7 @@
 <template lang="pug">
-  .col.tasks
+  .Column.Tasks
 
-    .col-header
+    .Column-header
       h3.title TASK
       button(
       class="btn --small new"
@@ -10,7 +10,7 @@
         iconPlus
         span New
 
-    .col-body(ref="scrollParent")
+    .Column-body(ref="scrollParent")
       VuePerfectScrollbar(
       class="scroll-area"
       v-if="isShow"
@@ -116,13 +116,14 @@
         this.$refs.content.classList.remove('drag-start')
       }
     }
+
   }
 </script>
 
 <style>
-  .col.tasks {
+  .Column.Tasks {
 
-    .col-header {
+    .Column-header {
       .new {
         background-color: var(--color-task);
       }

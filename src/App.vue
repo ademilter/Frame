@@ -1,24 +1,26 @@
 <template lang="pug">
   .App
-    .header
-    .cols
-      notes
-      tasks
-      .col.schedule asdsg asdasd
+
+    header.Header
+
+    .Columns
+      Notes
+      Tasks
+      .Column
 </template>
 
 <script>
-  import 'quill/dist/quill.core.css'
+  // import 'quill/dist/quill.core.css'
   import 'quill/dist/quill.bubble.css'
-  import notes from './components/notes'
-  import tasks from './components/tasks'
+  import Notes from './components/notes'
+  import Tasks from './components/tasks'
 
   export default {
     name: 'App',
 
     components: {
-      notes,
-      tasks
+      Notes,
+      Tasks
     }
   }
 </script>
@@ -35,8 +37,6 @@
     --color-lighter: rgba(0, 0, 0, .2);
     --color-light: rgba(0, 0, 0, .5);
     --color-note-primary: #D3B41E;
-    --col-border-radius: 10px;
-    --col-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1);
     --font-size-small: 14px;
   }
 
@@ -57,18 +57,6 @@
     box-sizing: border-box;
   }
 
-  body {
-    font-size: 16px;
-    line-height: 1.4;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-    color: #232323;
-    background-color: #E1E1E1;
-    height: 100vh;
-    overflow: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale
-  }
-
   input,
   textarea,
   select,
@@ -84,6 +72,18 @@
   button {
     cursor: pointer;
     background-color: transparent;
+  }
+
+  body {
+    font-size: 16px;
+    line-height: 1.4;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    color: #232323;
+    background-color: #E1E1E1;
+    height: 100vh;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
   }
 
   .btn {
@@ -119,11 +119,11 @@
     flex-direction: column;
   }
 
-  .header {
+  .Header {
     height: 120px;
   }
 
-  .cols {
+  .Columns {
     height: 100%;
     grid-column: 1 / 2;
     grid-row: 2 / 3;
@@ -132,12 +132,12 @@
     grid-template-columns: repeat(auto-fill, minmax(calc(33% - 10px), 1fr));
   }
 
-  .col {
+  .Column {
     display: flex;
     flex-direction: column;
     background-color: #FFF;
-    box-shadow: var(--col-box-shadow);
-    border-radius: var(--col-border-radius);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+    border-radius: 10px;
 
     .scroll-area {
       height: 100%;
@@ -168,16 +168,16 @@
       }
     }
 
-    &:hover &-header .new {
-      opacity: 1;
-    }
-
     &-body {
       flex-grow: 1;
 
       .content {
         padding-bottom: 100px;
       }
+    }
+
+    &:hover &-header .new {
+      opacity: 1;
     }
 
   }

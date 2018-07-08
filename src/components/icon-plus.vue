@@ -19,6 +19,3 @@
     name: 'icon-plus'
   }
 </script>
-
-<style>
-</style>

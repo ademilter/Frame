@@ -122,7 +122,7 @@
     }
 
     &.sortable-ghost {
-      background-color: #EEE;
+      background-color: #EEFAFD;
     }
 
     .handle {

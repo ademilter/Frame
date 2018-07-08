@@ -21,6 +21,3 @@
     name: 'icon-remove'
   }
 </script>
-
-<style>
-</style>

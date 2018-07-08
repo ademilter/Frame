@@ -16,6 +16,3 @@
     name: 'icon-drag'
   }
 </script>
-
-<style>
-</style>

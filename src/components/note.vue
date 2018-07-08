@@ -1,6 +1,13 @@
 <template lang="pug">
   .note
-    div.handle #
+
+    button.handle(
+    type="button")
+      icon-drag
+
+    .options
+      .remove(@click="remove") sil
+
     quill-editor(
     v-model="content"
     :options="editorOption"
@@ -8,6 +15,8 @@
 </template>
 
 <script>
+  import iconDrag from './icon-drag'
+
   export default {
     name: 'Note',
 
@@ -16,6 +25,10 @@
         required: true,
         type: Object
       }
+    },
+
+    components: {
+      iconDrag
     },
 
     data () {
@@ -30,11 +43,15 @@
 
     computed: {
       editorOption () {
-        return this.$store.getters.editorOption
+        return this.$store.state.editorOption
       }
     },
 
     methods: {
+      remove () {
+        this.$store.commit('removeNote', this.note)
+        this.$emit('onRemove')
+      },
       onEditorChange ({ quill, html }) {
         this.$store.commit('changeNote', {
           note: this.note,
@@ -45,16 +62,44 @@
   }
 </script>
 
-<style scoped>
+<style>
   .note {
-    background-color: white;
-    border-radius: var(--br);
+    padding-left: 30px;
+    padding-right: 30px;
+    position: relative;
+
+    &:not(:last-child):after {
+      content: "";
+      display: block;
+      border-bottom: var(--border-line-height) solid var(--border-line-color);
+    }
 
     &.sortable-chosen {
     }
 
     &.sortable-ghost {
-      background-color: #EEE;
+    }
+
+    .handle {
+      color: var(--color-lighter);
+      transition: var(--transition);
+      transform: translateX(-100%);
+      opacity: 0;
+      position: absolute;
+      left: 0;
+      top: 19px;
+    }
+
+    &:hover .handle {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .options {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 0;
     }
   }
 </style>

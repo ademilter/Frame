@@ -2,27 +2,14 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 // import _ from 'lodash'
 import createPersistedState from 'vuex-persistedstate'
-
-class Note {
-  constructor (data = {}) {
-    this.id = data.id || new Date().getTime()
-    this.content = data.content || ''
-  }
-}
-
-class Todo {
-  constructor (data = {}) {
-    this.id = data.id || new Date().getTime()
-    this.status = data.text || false
-    this.text = data.text || 'New todo'
-  }
-}
+import { Note, Task } from './model'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     notes: [],
+    tasks: [],
     editorOption: {
       modules: {
         toolbar: [
@@ -31,16 +18,12 @@ export default new Vuex.Store({
           ['clean']
         ]
       },
-      placeholder: 'Compose an epic...',
+      placeholder: 'New note...',
       theme: 'bubble'
-    },
-    todos: []
+    }
   },
 
   getters: {
-    notes: state => state.notes,
-    editorOption: state => state.editorOption,
-    todos: state => state.todos
   },
 
   actions: {},
@@ -55,17 +38,23 @@ export default new Vuex.Store({
     updateNotes (state, newList) {
       state.notes = newList
     },
-    updateTodos (state, newList) {
-      state.todos = newList
+    removeNote (state, note) {
+      state.notes.splice(state.notes.indexOf(note), 1)
     },
-    addTodo (state) {
-      state.todos.unshift(new Todo())
+    updateTasks (state, newList) {
+      state.tasks = newList
     },
-    changeTextTodo (state, { todo, text }) {
-      todo.text = text
+    addTask (state) {
+      state.tasks.unshift(new Task())
     },
-    changeStatusTodo (state, { todo, status }) {
-      todo.status = status
+    changeTextTask (state, { task, text }) {
+      task.text = text
+    },
+    changeStatusTask (state, { task, status }) {
+      task.status = status
+    },
+    removeTasks (state, task) {
+      state.tasks.splice(state.tasks.indexOf(task), 1)
     }
   },
 

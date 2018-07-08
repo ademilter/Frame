@@ -1,83 +1,43 @@
 <template lang="pug">
   .App
+    .header
     .cols
-
-      .col
-        .add(@click="addNote") ekle
-        Draggable(
-        v-model="notes"
-        :options="{ animation: 120, handle: '.handle' }")
-          note(
-          v-for="note in notes"
-          :key="note.id"
-          :note="note")
-
-      .col
-        .add(@click="addTodo") ekle
-        Draggable(
-        v-model="todos"
-        :options="{ animation: 120, handle: '.handle' }")
-          todo(
-          v-for="todo in todos"
-          :key="todo.id"
-          :todo="todo")
-
-      .col asdsg asdasd
+      notes
+      tasks
+      .col.schedule asdsg asdasd
 </template>
 
 <script>
   import 'quill/dist/quill.core.css'
   import 'quill/dist/quill.bubble.css'
-  import note from './components/note'
-  import todo from './components/todo'
-  import Draggable from 'vuedraggable'
+  import notes from './components/notes'
+  import tasks from './components/tasks'
 
   export default {
     name: 'App',
 
     components: {
-      note,
-      todo,
-      Draggable
-    },
-
-    data () {
-      return {}
-    },
-
-    computed: {
-      notes: {
-        get () {
-          return this.$store.getters.notes
-        },
-        set (value) {
-          this.$store.commit('updateNotes', value)
-        }
-      },
-      todos: {
-        get () {
-          return this.$store.getters.todos
-        },
-        set (value) {
-          this.$store.commit('updateTodos', value)
-        }
-      }
-    },
-
-    methods: {
-      addNote () {
-        this.$store.commit('addNote')
-      },
-      addTodo () {
-        this.$store.commit('addTodo')
-      }
+      notes,
+      tasks
     }
   }
 </script>
 
 <style>
   :root {
-    --br: 4px;
+    --border-radius: 4px;
+    --transition: 150ms;
+    --border-line-height: 1px;
+    --border-line-color: rgba(0, 0, 0, .1);
+    --color-note: #FFFBF2;
+    --color-task: #21B663;
+    --color-shadow: rgba(0, 0, 0, .1);
+    --color-lighter: rgba(0, 0, 0, .2);
+    --color-light: rgba(0, 0, 0, .5);
+    --color-note-primary: #D3B41E;
+    --col-border-radius: 10px;
+    --col-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1);
+    --font-size-small: 14px;
   }
 
   * {
@@ -85,41 +45,148 @@
     padding: 0;
     border: 0;
     outline: 0;
+
+    &,
+    &:before,
+    &:after {
+      box-sizing: inherit;
+    }
+  }
+
+  html {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-size: 16px;
+    line-height: 1.4;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    color: #232323;
+    background-color: #E1E1E1;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+    background-color: transparent;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    padding-right: 12px;
+    height: 40px;
+    line-height: 1;
+
+    .icon {
+      margin-right: 3px;
+    }
+
+    &.--small {
+      height: 30px;
+
+      .icon {
+        margin-right: 0;
+      }
+    }
   }
 
   .App {
-    font: 16px/1.5 Arial;
-    position: fixed;
     overflow: hidden;
-    size: 100vw;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
     height: 100vh;
-    color: #333;
-    background-color: #FFF;
+    padding: 20px;
+    display: grid;
+    grid-template-rows: 120px 1fr;
+    grid-gap: 20px;
+  }
+
+  .header {
   }
 
   .cols {
     height: 100%;
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(33%, 1fr));
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(calc(33% - 10px), 1fr));
   }
 
   .col {
-    padding: 20px;
-    border: 1px solid #DDD;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFF;
+    box-shadow: var(--col-box-shadow);
+    border-radius: var(--col-border-radius);
+
+    .scroll-area {
+      height: 100%;
+    }
+
+    &-header {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 30px;
+
+      .title {
+        font-size: 24px;
+        line-height: 1;
+      }
+
+      .new {
+        transition: var(--transition);
+        opacity: 0;
+        border-radius: 20px;
+        color: white;
+        font-size: var(--font-size-small);
+
+        .icon {
+          margin-left: -6px;
+        }
+      }
+    }
+
+    &:hover &-header .new {
+      opacity: 1;
+    }
+
+    &-body {
+      flex-grow: 1;
+
+      .content {
+        padding-bottom: 100px;
+      }
+    }
+
   }
 
-  .note {
-    border-top: 1px solid #DDD;
+  .ql-container {
+    font: inherit;
 
     .ql-editor {
-      padding-left: 0;
-      padding-right: 0;
-    }
+      padding: 20px 0;
 
-    .ql-editor.ql-blank::before {
-      left: 0;
-      font-style: normal;
-      right: 0;
+      &.ql-blank::before {
+        left: 0;
+        font-style: normal;
+        right: 0;
+      }
     }
   }
+
 </style>

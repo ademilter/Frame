@@ -2,6 +2,8 @@
 
 New-tab extension for Chrome
 
+<img src="screenshot.png" alt="screenshot" width="600px"/>
+
 ## Install
 
 - [**Chrome** extension](https://chrome.google.com/webstore/detail/frame/pimalalkfhkmnlhoapdlhilkghboiimc)
@@ -25,11 +27,6 @@ yarn serve  # Listen for file changes and automatically rebuild
 ## Maintainers
 
 - [Adem ilter](https://github.com/ademilter)
-
-
-## Screenshot
-
-![screenshot](screenshot.png)
 
 ## License
 

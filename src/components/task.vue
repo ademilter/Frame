@@ -33,9 +33,15 @@
         | {{ text }}
         button.remove(
         type="button"
-        v-if="!isEdit"
-        @click="remove")
+        v-if="!isEdit && !removing"
+        @click.stop="remove")
           iconRemove
+        button.stop(
+        type="button"
+        v-if="removing"
+        @click.stop="stop")
+          span {{ countdown }}
+
 </template>
 
 <script>
@@ -63,7 +69,9 @@
 
     data () {
       return {
-        isEdit: false
+        isEdit: false,
+        removing: false,
+        countdown: null
       }
     },
 
@@ -105,8 +113,20 @@
 
     methods: {
       remove () {
-        this.$store.commit('removeTasks', this.task)
-        this.$emit('onScrollUpdate')
+        this.removing = true
+        this.countdown = 5
+        this.$interval = setInterval(() => {
+          this.countdown--
+        }, 1000)
+        this.$timer = setTimeout(() => {
+          this.$store.commit('removeTasks', this.task)
+          this.$emit('onScrollUpdate')
+        }, this.countdown * 1000)
+      },
+      stop () {
+        this.removing = false
+        clearInterval(this.$interval)
+        clearTimeout(this.$timer)
       },
       blur () {
         if (this.task.isEmpty) {
@@ -114,6 +134,10 @@
         }
         this.isEdit = false
       }
+    },
+
+    beforeDestroy () {
+      this.stop()
     }
   }
 </script>
@@ -190,18 +214,30 @@
       }
     }
 
-    .remove {
+    .remove,
+    .stop {
       margin-left: 6px;
-      opacity: 0;
-      padding: 5px;
+      padding: 4px;
+      line-height: 1;
       border-radius: var(--border-radius);
       transition: var(--transition);
       position: absolute;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-top: -1px;
       color: var(--color-light);
+      vertical-align: middle;
+    }
+
+    .stop {
+      opacity: 1;
+      font-size: var(--font-size-small);
+      background-color: var(--color-shadow);
+    }
+
+    .remove {
+      opacity: 0;
+      margin-top: -1px;
 
       &:hover {
         color: red;

@@ -3,7 +3,6 @@ import App from './App.vue'
 import store from './store'
 import moment from 'moment'
 import 'moment/locale/tr'
-// import './registerServiceWorker'
 
 import Draggable from 'vuedraggable'
 import VueQuillEditor from 'vue-quill-editor'

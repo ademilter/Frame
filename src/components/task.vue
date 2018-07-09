@@ -19,8 +19,10 @@
       autosize(
       ref="autosize"
       rows="1"
-      @blur="isEdit = false"
-      @enter="isEdit = false"
+      placeholder="New task..."
+      @blur="blur"
+      @enter="blur"
+      @esc="blur"
       v-if="isEdit"
       v-model="text")
 
@@ -61,8 +63,7 @@
 
     data () {
       return {
-        isEdit: false,
-        textt: ''
+        isEdit: false
       }
     },
 
@@ -106,6 +107,12 @@
       remove () {
         this.$store.commit('removeTasks', this.task)
         this.$emit('onScrollUpdate')
+      },
+      blur () {
+        if (this.task.isEmpty) {
+          return this.remove()
+        }
+        this.isEdit = false
       }
     }
   }
@@ -117,13 +124,6 @@
     position: relative;
     display: flex;
     align-items: flex-start;
-
-    & + & {
-
-    }
-
-    &.sortable-chosen {
-    }
 
     &.sortable-ghost {
       background-color: #EEFAFD;

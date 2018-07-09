@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import _ from 'lodash'
 import createPersistedState from 'vuex-persistedstate'
 import { Note, Task } from './model'
 

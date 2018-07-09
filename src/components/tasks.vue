@@ -28,6 +28,7 @@
             Draggable(
             v-if="hasActiveTasks"
             v-model="tasks"
+            ref="activeTasks"
             @start="onDragStart"
             @end="onDragEnd"
             :options="{ animation: 120, handle: '.handle' }")
@@ -107,14 +108,18 @@
       addTask () {
         this.$store.commit('addTask')
         this.scrollUpdate()
+        this.$nextTick().then(() => {
+          const lastTask = this.$refs.activeTasks.$children.pop()
+          lastTask.isEdit = true
+        })
       },
       scrollUpdate () {
         this.$refs.ps.update()
       },
-      onDragStart (el) {
+      onDragStart () {
         this.$refs.content.classList.add('drag-start')
       },
-      onDragEnd (el) {
+      onDragEnd () {
         this.$refs.content.classList.remove('drag-start')
       }
     }

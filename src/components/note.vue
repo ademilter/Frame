@@ -7,13 +7,18 @@
 
     button.remove(
     type="button"
-    @click="remove")
+    v-if="!removing"
+    @click="timerRemove")
       iconRemove
+    button.stop(
+    type="button"
+    v-if="removing"
+    @click="stop")
+      span {{ countdown }}
 
     quill-editor(
     v-model="content"
-    :options="editorOption"
-    @change="onEditorChange($event)")
+    :options="editorOption")
 </template>
 
 <script>
@@ -30,38 +35,55 @@
       }
     },
 
+    data () {
+      return {
+        removing: false,
+        countdown: null
+      }
+    },
+
     components: {
       iconDrag,
       iconRemove
     },
 
-    data () {
-      return {
-        content: ''
-      }
-    },
-
-    created () {
-      this.content = this.note.content
-    },
-
     computed: {
+      content: {
+        get () {
+          return this.note.content
+        },
+        set (value) {
+          this.$store.commit('changeNote', {
+            note: this.note,
+            content: value
+          })
+          this.$emit('onScrollUpdate')
+        }
+      },
       editorOption () {
         return this.$store.state.editorOption
       }
     },
 
     methods: {
+      timerRemove () {
+        this.removing = true
+        this.countdown = 5
+        this.$interval = setInterval(() => {
+          this.countdown--
+        }, 1000)
+        this.$timer = setTimeout(() => {
+          this.remove()
+        }, this.countdown * 1000)
+      },
       remove () {
         this.$store.commit('removeNote', this.note)
         this.$emit('onScrollUpdate')
       },
-      onEditorChange ({ quill, html }) {
-        this.$store.commit('changeNote', {
-          note: this.note,
-          content: html
-        })
-        this.$emit('onScrollUpdate')
+      stop () {
+        this.removing = false
+        clearInterval(this.$interval)
+        clearTimeout(this.$timer)
       }
     }
   }
@@ -97,19 +119,30 @@
       cursor: ns-resize;
     }
 
-    .remove {
-      opacity: 0;
-      padding: 5px;
+    .remove,
+    .stop {
+      padding: 4px;
+      line-height: 1;
       border-radius: var(--border-radius);
       transition: var(--transition);
       position: absolute;
-      top: 18px;
+      top: 20px;
       right: 10px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-top: -1px;
       color: var(--color-light);
+      vertical-align: middle;
+    }
+
+    .stop {
+      opacity: 1;
+      font-size: var(--font-size-small);
+      background-color: var(--color-shadow);
+    }
+
+    .remove {
+      opacity: 0;
 
       &:hover {
         color: red;

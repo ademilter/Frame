@@ -34,7 +34,7 @@
         button.remove(
         type="button"
         v-if="!isEdit && !removing"
-        @click.stop="remove")
+        @click.stop="timerRemove")
           iconRemove
         button.stop(
         type="button"
@@ -112,23 +112,26 @@
     },
 
     methods: {
-      remove () {
+      timerRemove () {
         this.removing = true
         this.countdown = 5
         this.$interval = setInterval(() => {
           this.countdown--
         }, 1000)
         this.$timer = setTimeout(() => {
-          this.$store.commit('removeTasks', this.task)
-          this.$emit('onScrollUpdate')
+          this.remove()
         }, this.countdown * 1000)
+      },
+      remove () {
+        this.$store.commit('removeTasks', this.task)
+        this.$emit('onScrollUpdate')
       },
       stop () {
         this.removing = false
         clearInterval(this.$interval)
         clearTimeout(this.$timer)
       },
-      blur () {
+      blur (event) {
         if (this.task.isEmpty) {
           return this.remove()
         }

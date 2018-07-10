@@ -1,8 +1,8 @@
 <template lang="pug">
   textarea(
-  @blur="$emit('blur')"
-  @keydown.esc="$emit('esc')"
-  @keydown.enter.prevent="$emit('enter')"
+  @blur="$emit('blur', $event)"
+  @keydown.esc="$emit('esc', $event)"
+  @keydown.enter="$emit('enter', $event)"
   @input="$emit('input', $event.target.value)")
     | {{ value }}
 </template>

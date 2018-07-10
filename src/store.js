@@ -40,7 +40,10 @@ export default new Vuex.Store({
       state.notes = newList
     },
     removeNote (state, note) {
-      state.notes.splice(state.notes.indexOf(note), 1)
+      const index = state.notes.indexOf(note)
+      if (index > -1) {
+        state.notes.splice(index, 1)
+      }
     },
     updateTasks (state, newList) {
       state.tasks = newList
@@ -55,7 +58,10 @@ export default new Vuex.Store({
       task.status = status
     },
     removeTasks (state, task) {
-      state.tasks.splice(state.tasks.indexOf(task), 1)
+      const index = state.tasks.indexOf(task)
+      if (index > -1) {
+        state.tasks.splice(index, 1)
+      }
     }
   },
 

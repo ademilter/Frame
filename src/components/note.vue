@@ -17,6 +17,7 @@
       span {{ countdown }}
 
     quill-editor(
+    ref="editor"
     v-model="content"
     :options="editorOption")
 </template>

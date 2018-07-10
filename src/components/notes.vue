@@ -21,6 +21,7 @@
         v-model="notes"
         @start="onDragStart"
         @end="onDragEnd"
+        ref="notes"
         :options="{ animation: 120, handle: '.handle' }")
 
           note(
@@ -76,6 +77,10 @@
       addNote () {
         this.$store.commit('addNote')
         this.scrollUpdate()
+        this.$nextTick().then(() => {
+          const lastNote = this.$refs.notes.$children.pop()
+          lastNote.$refs.editor.quill.focus()
+        })
       },
       scrollUpdate () {
         this.$refs.ps.update()

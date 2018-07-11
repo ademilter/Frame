@@ -13,6 +13,6 @@ export class Task {
   }
 
   get isEmpty () {
-    return this.text.trim.length === 0
+    return this.text.trim().length === 0
   }
 }

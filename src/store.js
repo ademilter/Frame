@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import { Note, Task } from './model'
+import moment from 'moment'
+import httpCal from './http-cal'
 
 Vue.use(Vuex)
 
@@ -27,7 +29,29 @@ export default new Vuex.Store({
     hasCompletedTasks: state => state.tasks.some(o => o.status)
   },
 
-  actions: {},
+  actions: {
+    async getEventList () {
+      const calendarList = await httpCal.get('users/me/calendarList')
+      console.log(calendarList)
+      /*
+      const id = calendarList.data.items[1].id
+      const fromDate = moment()
+      const toDate = moment().add(14, 'days')
+      const url = [
+        'calendars/',
+        encodeURIComponent(id),
+        '/events?',
+        'timeMin=' + encodeURIComponent(fromDate.toISOString()),
+        '&timeMax=' + encodeURIComponent(toDate.toISOString()),
+        '&maxResults=50',
+        '&orderBy=startTime',
+        '&singleEvents=true'
+      ].join('')
+      const list = await httpCal.get(url)
+      console.log(list)
+      */
+    }
+  },
 
   mutations: {
     addNote (state) {
@@ -62,6 +86,9 @@ export default new Vuex.Store({
       if (index > -1) {
         state.tasks.splice(index, 1)
       }
+    },
+    calSetToken (state, token) {
+      httpCal.defaults.headers.common.Authorization = `Bearer ${token}`
     }
   },
 

@@ -6,7 +6,8 @@
     .Columns
       Notes
       Tasks
-      .Column-shadow
+      Schedules
+      //.Column-shadow
         .note
           | Buraya güzel şeyler gelecek.
 
@@ -18,6 +19,7 @@
   import Header from './components/header'
   import Notes from './components/notes'
   import Tasks from './components/tasks'
+  import Schedules from './components/schedules'
 
   export default {
     name: 'App',
@@ -25,7 +27,8 @@
     components: {
       HeaderView: Header,
       Notes,
-      Tasks
+      Tasks,
+      Schedules
     }
   }
 </script>

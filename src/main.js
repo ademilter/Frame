@@ -13,10 +13,20 @@ Vue.component('VuePerfectScrollbar', VuePerfectScrollbar)
 Vue.use(VueQuillEditor, {})
 
 Vue.prototype.$moment = moment
-
 Vue.config.productionTip = false
 
 new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+/* eslint-disable no-undef */
+window.onload = function () {
+  chrome.identity.getAuthToken(
+    { interactive: true },
+    async function (token) {
+      store.commit('calSetToken', token, { root: true })
+      store.dispatch('getEventList')
+    }
+  )
+}

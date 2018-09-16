@@ -18,7 +18,7 @@
 
     created () {
       setInterval(() => {
-        this.time = this.$moment().format('h:mm')
+        this.time = this.$moment().format('hh:mm')
         this.date = this.$moment().format('dddd, D MMMM YYYY')
       })
     }

@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import moment from 'moment'
-import { Note, Task, CalendarItem } from '../model'
+import { Note, Task, CalendarListItem, CalendarItem } from '../model'
+import { dummyCalendarList, dummyCalendarItems } from './dummy-data'
 import httpCal from '../utils/http-calendar'
 
 Vue.use(Vuex)
@@ -62,6 +63,7 @@ export default new Vuex.Store({
         ].join('')
         return httpCal.get(url)
       })
+
       const response = await Promise.all(requestList)
       commit('setCalendarItems', response)
     }
@@ -110,16 +112,23 @@ export default new Vuex.Store({
 
     // CALENDAR
 
+    calSetDummyData (state) {
+      state.calendarList = dummyCalendarList()
+      state.calendarItems = dummyCalendarItems()
+    },
+
     calSetToken (state, token) {
       httpCal.defaults.headers.common.Authorization = `Bearer ${token}`
     },
 
     setCalendarList (state, data) {
-      state.calendarList = data.items.map(item => new CalendarItem(item))
+      state.calendarList = data.items.map(item => new CalendarListItem(item))
     },
 
     setCalendarItems (state, items) {
-      state.calendarItems = items.map(item => item.data)
+      const data = items.map(item => item.data)
+      const events = data.map(calendar => calendar.items)
+      state.calendarItems = events.flat().map(event => new CalendarItem(event))
     }
 
   }

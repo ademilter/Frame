@@ -20,13 +20,17 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-/* eslint-disable no-undef */
-window.onload = function () {
-  chrome.identity.getAuthToken(
-    { interactive: true },
-    async function (token) {
-      store.commit('calSetToken', token, { root: true })
-      store.dispatch('getEventList')
-    }
-  )
+if (process.env.production) {
+  /* eslint-disable no-undef */
+  window.onload = function () {
+    chrome.identity.getAuthToken(
+      { interactive: true },
+      async function (token) {
+        store.commit('calSetToken', token)
+        store.dispatch('getEventList')
+      }
+    )
+  }
+} else {
+  store.commit('calSetDummyData')
 }

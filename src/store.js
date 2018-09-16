@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
-import { Note, Task } from './model'
+import { Note, Task, CalendarItem } from './model'
 import moment from 'moment'
 import httpCal from './http-cal'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+
+  plugins: [createPersistedState()],
+
   state: {
     notes: [],
     tasks: [],
@@ -21,7 +24,8 @@ export default new Vuex.Store({
       },
       placeholder: 'New note...',
       theme: 'bubble'
-    }
+    },
+    calendarList: null
   },
 
   getters: {
@@ -30,30 +34,43 @@ export default new Vuex.Store({
   },
 
   actions: {
-    async getEventList () {
-      const calendarList = await httpCal.get('users/me/calendarList')
-      console.log(calendarList)
-      /*
-      const id = calendarList.data.items[1].id
+
+    async getCalendarList ({ commit }) {
+      const response = await httpCal.get('users/me/calendarList')
+      commit('setCalendarList', response.data)
+    },
+
+    async getEventList ({ state, dispatch }) {
+      if (!state.calendarList) {
+        await dispatch('getCalendarList')
+      }
+
       const fromDate = moment()
       const toDate = moment().add(14, 'days')
-      const url = [
-        'calendars/',
-        encodeURIComponent(id),
-        '/events?',
-        'timeMin=' + encodeURIComponent(fromDate.toISOString()),
-        '&timeMax=' + encodeURIComponent(toDate.toISOString()),
-        '&maxResults=50',
-        '&orderBy=startTime',
-        '&singleEvents=true'
-      ].join('')
-      const list = await httpCal.get(url)
-      console.log(list)
-      */
+
+      const requestList = state.calendarList.map(cal => {
+        const url = [
+          'calendars/',
+          encodeURIComponent(cal.id),
+          '/events',
+          '?timeMin=' + encodeURIComponent(fromDate.toISOString()),
+          '&timeMax=' + encodeURIComponent(toDate.toISOString()),
+          '&maxResults=50',
+          '&orderBy=startTime',
+          '&singleEvents=true'
+        ].join('')
+        return httpCal.get(url)
+      })
+
+      const response = await Promise.all(requestList)
+      console.log(response)
     }
   },
 
   mutations: {
+
+    // NOTE
+
     addNote (state) {
       state.notes.unshift(new Note())
     },
@@ -69,6 +86,9 @@ export default new Vuex.Store({
         state.notes.splice(index, 1)
       }
     },
+
+    // TASK
+
     updateTasks (state, newList) {
       state.tasks = newList
     },
@@ -87,10 +107,17 @@ export default new Vuex.Store({
         state.tasks.splice(index, 1)
       }
     },
+
+    // CALENDAR
+
     calSetToken (state, token) {
       httpCal.defaults.headers.common.Authorization = `Bearer ${token}`
-    }
-  },
+    },
 
-  plugins: [createPersistedState()]
+    setCalendarList (state, data) {
+      state.calendarList = data.items.map(item => new CalendarItem(item))
+    }
+
+  }
+
 })

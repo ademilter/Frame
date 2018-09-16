@@ -45,10 +45,10 @@
 </template>
 
 <script>
-  import iconDrag from './icon-drag'
-  import iconCheck from './icon-check'
-  import iconRemove from './icon-remove'
-  import autosize from './autosize'
+  import iconDrag from '@/icons/drag'
+  import iconCheck from '@/icons/check'
+  import iconRemove from '@/icons/remove'
+  import autosize from '../global/autosize'
 
   export default {
     name: 'Task',

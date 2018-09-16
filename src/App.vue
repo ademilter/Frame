@@ -14,11 +14,10 @@
 </template>
 
 <script>
-  // import 'quill/dist/quill.core.css'
   import 'quill/dist/quill.bubble.css'
-  import Header from './components/header'
-  import Notes from './components/notes'
-  import Tasks from './components/tasks'
+  import Header from './components/global/header'
+  import Notes from './components/note'
+  import Tasks from './components/task'
   import Calendar from './components/calendar'
 
   export default {

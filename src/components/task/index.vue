@@ -58,7 +58,7 @@
 
 <script>
   import task from './task'
-  import iconPlus from './icon-plus'
+  import iconPlus from '@/icons/plus'
 
   export default {
     name: 'Tasks',

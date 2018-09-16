@@ -23,8 +23,8 @@
 </template>
 
 <script>
-  import iconDrag from './icon-drag'
-  import iconRemove from './icon-remove'
+  import iconDrag from '@/icons/drag'
+  import iconRemove from '@/icons/remove'
 
   export default {
     name: 'Note',

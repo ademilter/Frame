@@ -17,17 +17,16 @@
       ref="ps")
 
         .content(ref="content")
+
 </template>
 
 <script>
-  import task from './task'
-  import iconPlus from './icon-plus'
+  import iconPlus from '@/icons/plus'
 
   export default {
     name: 'Calendar',
 
     components: {
-      task,
       iconPlus
     },
 

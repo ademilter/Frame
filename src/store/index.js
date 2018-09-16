@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
-import { Note, Task, CalendarItem } from './model'
 import moment from 'moment'
-import httpCal from './http-cal'
+import { Note, Task, CalendarItem } from '../model'
+import httpCal from '../utils/http-calendar'
 
 Vue.use(Vuex)
 

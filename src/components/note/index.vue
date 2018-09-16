@@ -33,7 +33,7 @@
 
 <script>
   import note from './note'
-  import iconPlus from './icon-plus'
+  import iconPlus from '@/icons/plus'
 
   export default {
     name: 'Notes',

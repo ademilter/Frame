@@ -40,7 +40,7 @@
     --border-line-color: rgba(0, 0, 0, .1);
     --color-note: #FFFBF2;
     --color-task: #21B663;
-    --color-calander: #21B663;
+    --color-calander: #FF3845;
     --color-shadow: rgba(0, 0, 0, .1);
     --color-lighter: rgba(0, 0, 0, .2);
     --color-light: rgba(0, 0, 0, .5);
@@ -70,6 +70,10 @@
   select,
   button {
     font: inherit;
+  }
+
+  table {
+    border-spacing: 0;
   }
 
   svg {

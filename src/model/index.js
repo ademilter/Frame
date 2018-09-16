@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export class Note {
   constructor (data = {}) {
     this.id = data.id || new Date().getTime()
@@ -54,5 +56,23 @@ export class CalendarItem {
     this.status = data.status // "confirmed"
     this.summary = data.summary // "Adem - İlyas Bulusma"
     this.updated = data.updated // "2018-09-16T14:29:01.937Z"
+  }
+
+  get startDate () {
+    return moment(this.start.date || this.start.dateTime)
+  }
+
+  get endDate () {
+    return moment(this.end.date || this.end.dateTime)
+  }
+
+  get isEqual () {
+    return this.startDate.isSame(this.endDate, 'day')
+  }
+
+  get time () {
+    return this.isEqual
+      ? this.startDate.format('HH:mm') + ' - ' + this.endDate.format('HH:mm')
+      : 'Tüm Gün'
   }
 }

@@ -26,13 +26,20 @@ export default new Vuex.Store({
       placeholder: 'New note...',
       theme: 'bubble'
     },
-    calendarList: null,
+    calendarList: [],
     calendarItems: []
   },
 
   getters: {
     hasActiveTasks: state => state.tasks.some(o => !o.status),
-    hasCompletedTasks: state => state.tasks.some(o => o.status)
+    hasCompletedTasks: state => state.tasks.some(o => o.status),
+    eventsByDateGroup: state => {
+      return state.calendarItems.reduce((acc, obj) => {
+        const key = moment(obj.start.date || obj.start.dateTime).toISOString();
+        (acc[key] || (acc[key] = [])).push(obj)
+        return acc
+      }, {})
+    }
   },
 
   actions: {
@@ -48,7 +55,7 @@ export default new Vuex.Store({
       }
 
       const fromDate = moment()
-      const toDate = moment().add(14, 'days')
+      const toDate = moment().add(7, 'days')
 
       const requestList = state.calendarList.map(cal => {
         const url = [
@@ -113,8 +120,8 @@ export default new Vuex.Store({
     // CALENDAR
 
     calSetDummyData (state) {
-      state.calendarList = dummyCalendarList()
-      state.calendarItems = dummyCalendarItems()
+      state.calendarList = dummyCalendarList().map(item => new CalendarListItem(item))
+      state.calendarItems = dummyCalendarItems().map(event => new CalendarItem(event))
     },
 
     calSetToken (state, token) {

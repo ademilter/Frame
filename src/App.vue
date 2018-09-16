@@ -6,7 +6,7 @@
     .Columns
       Notes
       Tasks
-      Schedules
+      Calendar
       //.Column-shadow
         .note
           | Buraya güzel şeyler gelecek.
@@ -19,7 +19,7 @@
   import Header from './components/header'
   import Notes from './components/notes'
   import Tasks from './components/tasks'
-  import Schedules from './components/schedules'
+  import Calendar from './components/calendar'
 
   export default {
     name: 'App',
@@ -28,7 +28,7 @@
       HeaderView: Header,
       Notes,
       Tasks,
-      Schedules
+      Calendar
     }
   }
 </script>
@@ -41,6 +41,7 @@
     --border-line-color: rgba(0, 0, 0, .1);
     --color-note: #FFFBF2;
     --color-task: #21B663;
+    --color-calander: #21B663;
     --color-shadow: rgba(0, 0, 0, .1);
     --color-lighter: rgba(0, 0, 0, .2);
     --color-light: rgba(0, 0, 0, .5);
@@ -169,6 +170,7 @@
         border-radius: 20px;
         color: white;
         font-size: var(--font-size-small);
+        text-decoration: none;
 
         .icon {
           margin-left: -6px;

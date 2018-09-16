@@ -82,10 +82,6 @@
       window.addEventListener('resize', this.scrollUpdate)
     },
 
-    beforeDestroy () {
-      window.removeEventListener('resize', this.scrollUpdate)
-    },
-
     computed: {
       hasActiveTasks () {
         return this.$store.getters.hasActiveTasks

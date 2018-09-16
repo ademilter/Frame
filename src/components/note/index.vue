@@ -57,10 +57,6 @@
       window.addEventListener('resize', this.scrollUpdate)
     },
 
-    beforeDestroy () {
-      window.removeEventListener('resize', this.scrollUpdate)
-    },
-
     computed: {
       notes: {
         get () {

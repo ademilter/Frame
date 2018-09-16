@@ -25,7 +25,8 @@ export default new Vuex.Store({
       placeholder: 'New note...',
       theme: 'bubble'
     },
-    calendarList: null
+    calendarList: null,
+    calendarItems: []
   },
 
   getters: {
@@ -40,7 +41,7 @@ export default new Vuex.Store({
       commit('setCalendarList', response.data)
     },
 
-    async getEventList ({ state, dispatch }) {
+    async getEventList ({ state, dispatch, commit }) {
       if (!state.calendarList) {
         await dispatch('getCalendarList')
       }
@@ -61,9 +62,8 @@ export default new Vuex.Store({
         ].join('')
         return httpCal.get(url)
       })
-
       const response = await Promise.all(requestList)
-      console.log(response)
+      commit('setCalendarItems', response)
     }
   },
 
@@ -116,6 +116,10 @@ export default new Vuex.Store({
 
     setCalendarList (state, data) {
       state.calendarList = data.items.map(item => new CalendarItem(item))
+    },
+
+    setCalendarItems (state, items) {
+      state.calendarItems = items.map(item => item.data)
     }
 
   }

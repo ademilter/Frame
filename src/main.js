@@ -20,9 +20,10 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-if (process.env.production) {
+if (process.env.NODE_ENV === 'production') {
   /* eslint-disable no-undef */
   window.onload = function () {
+    console.info('production')
     chrome.identity.getAuthToken(
       { interactive: true },
       async function (token) {
@@ -32,5 +33,6 @@ if (process.env.production) {
     )
   }
 } else {
+  console.info('development')
   store.commit('calSetDummyData')
 }

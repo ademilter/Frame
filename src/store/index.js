@@ -50,12 +50,12 @@ export default new Vuex.Store({
     },
 
     async getEventList ({ state, dispatch, commit }) {
-      if (!state.calendarList) {
+      if (state.calendarList.length === 0) {
         await dispatch('getCalendarList')
       }
 
       const fromDate = moment()
-      const toDate = moment().add(7, 'days')
+      const toDate = moment().add(14, 'days')
 
       const requestList = state.calendarList.map(cal => {
         const url = [

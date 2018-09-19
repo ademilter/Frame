@@ -45,6 +45,19 @@
     components: {
       iconPlus
     },
+    created () {
+      // .note
+      // Başlangıçta saating 1 saniye gecikmeli gelmesini engellemek adına eklenmiş iki satır.
+      this.time = this.$moment().format('HH:mm')
+      this.date = this.$moment().format('dddd, D MMMM YYYY')
+
+      setInterval(() => {
+        this.time = this.$moment().format('HH:mm')
+        this.date = this.$moment().format('dddd, D MMMM YYYY')
+
+        this.Notification()
+      }, 60000)
+    },
 
     data () {
       return {
@@ -69,9 +82,22 @@
     methods: {
       scrollUpdate () {
         this.$refs.ps.update()
+      },
+
+      Notification () {
+        Notification.requestPermission(function (permission) {
+        })
+        const result = this.eventsByDateGroup
+
+        for (var anEvent in result) {
+          if (this.$moment(anEvent).format('dddd, D MMMM YYYY') === this.date) {
+            if (this.$moment(anEvent).fromNow() === '30 dakika sonra') {
+               new Notification('Yaklaşan etkinlik: ' + result[anEvent][0].summary + ' \n 30 dakika sonra')
+            }
+          }
+        }
       }
     }
-
   }
 </script>
 

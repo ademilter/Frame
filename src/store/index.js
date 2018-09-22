@@ -27,7 +27,8 @@ export default new Vuex.Store({
       theme: 'bubble'
     },
     calendarList: [],
-    calendarItems: []
+    calendarItems: [],
+    firefoxToken: ''
   },
 
   getters: {
@@ -39,7 +40,8 @@ export default new Vuex.Store({
         (acc[key] || (acc[key] = [])).push(obj)
         return acc
       }, {})
-    }
+    },
+    hasFirefoxToken: state => !!state.firefoxToken
   },
 
   actions: {
@@ -73,6 +75,11 @@ export default new Vuex.Store({
 
       const response = await Promise.all(requestList)
       commit('setCalendarItems', response)
+    },
+
+    setTokenForFirefox ({ commit }, token) {
+      commit('firefoxSetToken', token)
+      commit('calSetToken', token)
     }
   },
 
@@ -128,6 +135,10 @@ export default new Vuex.Store({
       httpCal.defaults.headers.common.Authorization = `Bearer ${token}`
     },
 
+    firefoxSetToken (state, token) {
+      state.firefoxToken = token
+    },
+
     setCalendarList (state, data) {
       state.calendarList = data.items.map(item => new CalendarListItem(item))
     },
@@ -137,7 +148,6 @@ export default new Vuex.Store({
       const events = data.map(calendar => calendar.items)
       state.calendarItems = events.flat().map(event => new CalendarItem(event))
     }
-
   }
 
 })

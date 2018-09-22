@@ -1,8 +1,7 @@
 <template lang="pug">
   .note
 
-    button.handle(
-    type="button")
+    .handle
       icon-drag
 
     button.remove(

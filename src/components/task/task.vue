@@ -1,8 +1,7 @@
 <template lang="pug">
   .task
 
-    button.handle(
-    type="button")
+    .handle
       icon-drag
 
     // checkbox

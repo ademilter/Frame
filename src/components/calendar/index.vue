@@ -84,15 +84,19 @@
         this.$refs.ps.update()
       },
 
+      /* global chrome */
       Notification () {
-        Notification.requestPermission(function (permission) {
-        })
         const result = this.eventsByDateGroup
 
-        for (var anEvent in result) {
+        for (const anEvent in result) {
           if (this.$moment(anEvent).format('dddd, D MMMM YYYY') === this.date) {
             if (this.$moment(anEvent).fromNow() === '30 dakika sonra') {
-               new Notification('Yaklaşan etkinlik: ' + result[anEvent][0].summary + ' \n 30 dakika sonra')
+              chrome.notifications.create(null, {
+                'type': 'basic',
+                'iconUrl': 'icon-48.png',
+                'title': 'Yaklaşan etkinlik',
+                'message': result[anEvent][0].summary + ' \n 30 dakika sonra'
+              })
             }
           }
         }

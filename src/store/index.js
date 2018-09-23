@@ -28,11 +28,13 @@ export default new Vuex.Store({
     },
     calendarList: [],
     calendarItems: [],
-    token: null
+    token: null,
+    notification: 'default'
   },
 
   getters: {
     hasToken: state => !!state.token,
+    allowNotification: state => state.notification === 'granted',
     hasActiveTasks: state => state.tasks.some(o => !o.status),
     hasCompletedTasks: state => state.tasks.some(o => o.status),
     eventsByDateGroup: state => {
@@ -87,6 +89,10 @@ export default new Vuex.Store({
 
     setToken (state, token) {
       httpCal.defaults.headers.common.Authorization = `Bearer ${token}`
+    },
+
+    changeNotification (state, status) {
+      state.notification = status
     },
 
     // NOTE

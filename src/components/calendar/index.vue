@@ -4,59 +4,28 @@
     .Column-header
       h3.title CALENDAR
 
-    .Column-body(ref="scrollParent")
-      VuePerfectScrollbar(
-      class="scroll-area"
-      v-if="isShow"
-      tagname="div"
-      ref="ps")
+    .Column-body
 
-        .content(ref="content")
+      table.event-group
+        EventDay(
+        v-for="(events, key) in eventsByDateGroup"
+        :key="key"
+        :date="key"
+        :events="events")
 
-          table.event-group
-            tr(
-            v-for="(events, key) in eventsByDateGroup"
-            :key="key")
-
-              td.event-date
-                p
-                  | {{ $moment(key).format('dddd') }}
-                p
-                  small {{ $moment(key).format('D MMMM YYYY') }}
-
-              td.event-list
-                div.Event(
-                v-for="event in events"
-                :key="event.id")
-                  h4 {{ event.summary }}
-                  p
-                    small {{ event.location }}
-                  p
-                    small {{ event.time }}
 
 </template>
 
 <script>
+  import EventDay from './event-day'
   import iconPlus from '@/icons/plus'
 
   export default {
     name: 'Calendar',
 
     components: {
+      EventDay,
       iconPlus
-    },
-    created () {
-      // .note
-      // Başlangıçta saating 1 saniye gecikmeli gelmesini engellemek adına eklenmiş iki satır.
-      this.time = this.$moment().format('HH:mm')
-      this.date = this.$moment().format('dddd, D MMMM YYYY')
-
-      setInterval(() => {
-        this.time = this.$moment().format('HH:mm')
-        this.date = this.$moment().format('dddd, D MMMM YYYY')
-
-        this.Notification()
-      }, 60000)
     },
 
     data () {
@@ -66,71 +35,51 @@
     },
 
     mounted () {
-      const h = this.$refs.scrollParent.clientHeight
-      this.$refs.scrollParent.style.height = `${h}px`
-      this.isShow = true
-
-      window.addEventListener('resize', this.scrollUpdate)
+      if (this.$store.getters.allowNotification) {
+        this.checkEvents()
+        setInterval(() => {
+          this.checkEvents()
+        }, 1800000) // 30 minute
+      }
     },
 
     computed: {
+      calendarItems () {
+        return this.$store.state.calendarItems
+      },
       eventsByDateGroup () {
         return this.$store.getters.eventsByDateGroup
       }
     },
 
     methods: {
-      scrollUpdate () {
-        this.$refs.ps.update()
-      },
-
-      /* global chrome */
-      Notification () {
-        const result = this.eventsByDateGroup
-
-        for (const anEvent in result) {
-          if (this.$moment(anEvent).format('dddd, D MMMM YYYY') === this.date) {
-            if (this.$moment(anEvent).fromNow() === '30 dakika sonra') {
-              chrome.notifications.create(null, {
-                'type': 'basic',
-                'iconUrl': 'icon-48.png',
-                'title': 'Yaklaşan etkinlik',
-                'message': result[anEvent][0].summary + ' \n 30 dakika sonra'
+      checkEvents () {
+        // TODO: maybe need to refactor
+        this.calendarItems.forEach(event => {
+          const time = this.$moment(event.start.date || event.start.dateTime)
+          if (time.isSame(this.$moment(), 'day')) {
+            const now = this.$moment()
+            const diff = time.format('H') - now.format('H')
+            // last one hour
+            if (diff > 0 && diff <= 1) {
+              /* eslint-disable no-new */
+              new Notification(event.summary, {
+                body: time.fromNow(),
+                icon: './icon-128.png'
               })
             }
           }
-        }
+        })
       }
     }
+
   }
 </script>
 
-<style>
-  .Column.Calendar {
-
+<style scoped>
+  .Column {
     .event-group {
-      margin-top: -10px;
-      margin-left: 30px;
-      margin-right: 30px;
-
-      tr {
-        vertical-align: top;
-
-        + tr {
-          td {
-            border-top: 1px solid var(--border-line-color);
-          }
-        }
-      }
-
-      td {
-        padding-top: 15px;
-        padding-bottom: 15px;
-
-        &.event-date {
-          padding-right: 20px;
-        }
-      }
+      margin-top: -15px;
     }
   }
 </style>

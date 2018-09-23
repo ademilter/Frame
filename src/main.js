@@ -3,7 +3,7 @@ import App from './App'
 import store from './store'
 import moment from 'moment'
 import 'moment/locale/tr'
-import getAuthToken from './utils/get-token'
+// import getAuthToken from './utils/get-token'
 
 import Draggable from 'vuedraggable'
 import VueQuillEditor from 'vue-quill-editor'
@@ -21,12 +21,13 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-if (process.env.NODE_ENV === 'production') {
-  console.info('production')
-  window.onload = function () {
-    getAuthToken()
-  }
-} else {
-  console.info('development')
+if (process.env.NODE_ENV === 'development') {
   store.commit('calSetDummyData')
+}
+
+if (store.state.notification === 'default') {
+  Notification.requestPermission(function (permission) {
+    console.log(permission)
+    store.commit('changeNotification', permission)
+  })
 }

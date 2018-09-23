@@ -28,10 +28,11 @@ export default new Vuex.Store({
     },
     calendarList: [],
     calendarItems: [],
-    firefoxToken: ''
+    token: null
   },
 
   getters: {
+    hasToken: state => !!state.token,
     hasActiveTasks: state => state.tasks.some(o => !o.status),
     hasCompletedTasks: state => state.tasks.some(o => o.status),
     eventsByDateGroup: state => {
@@ -40,8 +41,7 @@ export default new Vuex.Store({
         (acc[key] || (acc[key] = [])).push(obj)
         return acc
       }, {})
-    },
-    hasFirefoxToken: state => !!state.firefoxToken
+    }
   },
 
   actions: {
@@ -75,15 +75,19 @@ export default new Vuex.Store({
 
       const response = await Promise.all(requestList)
       commit('setCalendarItems', response)
-    },
-
-    setTokenForFirefox ({ commit }, token) {
-      commit('firefoxSetToken', token)
-      commit('calSetToken', token)
     }
+
   },
 
   mutations: {
+
+    changeToken (state, token) {
+      state.token = token
+    },
+
+    setToken (state, token) {
+      httpCal.defaults.headers.common.Authorization = `Bearer ${token}`
+    },
 
     // NOTE
 
@@ -129,14 +133,6 @@ export default new Vuex.Store({
     calSetDummyData (state) {
       state.calendarList = dummyCalendarList().map(item => new CalendarListItem(item))
       state.calendarItems = dummyCalendarItems().map(event => new CalendarItem(event))
-    },
-
-    calSetToken (state, token) {
-      httpCal.defaults.headers.common.Authorization = `Bearer ${token}`
-    },
-
-    firefoxSetToken (state, token) {
-      state.firefoxToken = token
     },
 
     setCalendarList (state, data) {

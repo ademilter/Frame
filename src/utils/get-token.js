@@ -26,8 +26,8 @@ const extractAccessToken = redirectUri => {
 }
 
 const getAuthToken = () => {
-  if (store.getters.hasFirefoxToken) {
-    store.commit('calSetToken', store.firefoxToken)
+  if (store.getters.hasToken) {
+    store.commit('setToken', store.state.token)
     store.dispatch('getEventList')
   } else {
     chrome.identity.launchWebAuthFlow({
@@ -35,14 +35,15 @@ const getAuthToken = () => {
       url: authUrl()
     }, async redirectUri => {
       const token = extractAccessToken(redirectUri)
-      store.dispatch('setTokenForFirefox', token)
+      store.commit('changeToken', token)
+      store.commit('setToken', token)
       store.dispatch('getEventList')
 
       // Setting up an interceptor in case of a token expiration or unsuccessful
       // authentication.
       httpCal.interceptors.response.use(null, error => {
         if (error.status === 401) {
-          store.dispatch('setTokenForFirefox', '')
+          store.dispatch('changeToken', null)
           getAuthToken()
         }
         return Promise.reject(error)

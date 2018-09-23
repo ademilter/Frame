@@ -1,8 +1,7 @@
 <template lang="pug">
   .note
 
-    button.handle(
-    type="button")
+    .handle
       icon-drag
 
     button.remove(
@@ -95,6 +94,7 @@
     padding-left: 30px;
     padding-right: 30px;
     position: relative;
+    background-color: var(--color-note);
 
     &:not(:last-child):after {
       content: "";

@@ -1,8 +1,7 @@
 <template lang="pug">
   .task
 
-    button.handle(
-    type="button")
+    .handle
       icon-drag
 
     // checkbox
@@ -151,6 +150,7 @@
     position: relative;
     display: flex;
     align-items: flex-start;
+    background-color: #FFF;
 
     &.sortable-ghost {
       background-color: #EEFAFD;

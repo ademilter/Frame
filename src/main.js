@@ -3,6 +3,7 @@ import App from './App'
 import store from './store'
 import moment from 'moment'
 import 'moment/locale/tr'
+import getFirefoxAuthToken from './utils/firefox-auth'
 
 import Draggable from 'vuedraggable'
 import VueQuillEditor from 'vue-quill-editor'
@@ -21,16 +22,20 @@ new Vue({
 }).$mount('#app')
 
 if (process.env.NODE_ENV === 'production') {
-  /* eslint-disable no-undef */
+  /* global chrome */
   window.onload = function () {
     console.info('production')
-    chrome.identity.getAuthToken(
-      { interactive: true },
-      async function (token) {
-        store.commit('calSetToken', token)
-        store.dispatch('getEventList')
-      }
-    )
+    if (process.env.VUE_APP_PLATFORM === 'firefox') {
+      getFirefoxAuthToken()
+    } else {
+      chrome.identity.getAuthToken(
+        { interactive: true },
+        async function (token) {
+          store.commit('calSetToken', token)
+          store.dispatch('getEventList')
+        }
+      )
+    }
   }
 } else {
   console.info('development')

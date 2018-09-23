@@ -48,6 +48,7 @@
     },
 
     computed: {
+
       content: {
         get () {
           return this.note.content
@@ -57,15 +58,16 @@
             note: this.note,
             content: value
           })
-          this.$emit('onScrollUpdate')
         }
       },
+
       editorOption () {
         return this.$store.state.editorOption
       }
     },
 
     methods: {
+
       timerRemove () {
         this.removing = true
         this.countdown = 5
@@ -76,15 +78,17 @@
           this.remove()
         }, this.countdown * 1000)
       },
+
       remove () {
         this.$store.commit('removeNote', this.note)
-        this.$emit('onScrollUpdate')
       },
+
       stop () {
         this.removing = false
         clearInterval(this.$interval)
         clearTimeout(this.$timer)
       }
+
     }
   }
 </script>

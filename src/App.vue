@@ -7,9 +7,6 @@
       Notes
       Tasks
       Calendar
-      //.Column-shadow
-        .note
-          | Buraya güzel şeyler gelecek.
 
 </template>
 
@@ -74,6 +71,7 @@
 
   table {
     border-spacing: 0;
+    width: 100%;
   }
 
   svg {
@@ -133,6 +131,7 @@
 
   .Header {
     height: 120px;
+    flex-shrink: 0;
   }
 
   .Columns {
@@ -150,10 +149,6 @@
     background-color: #FFF;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
     border-radius: 10px;
-
-    .scroll-area {
-      height: 100%;
-    }
 
     &-header {
       flex-shrink: 0;
@@ -183,10 +178,7 @@
 
     &-body {
       flex-grow: 1;
-
-      .content {
-        padding-bottom: 100px;
-      }
+      padding-bottom: 50px;
     }
 
     &:hover &-header .new {

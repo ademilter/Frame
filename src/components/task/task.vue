@@ -84,6 +84,7 @@
     },
 
     computed: {
+
       text: {
         get () {
           return this.task.text
@@ -93,9 +94,9 @@
             task: this.task,
             text: value
           })
-          this.$emit('onScrollUpdate')
         }
       },
+
       status: {
         get () {
           return this.task.status
@@ -105,12 +106,13 @@
             task: this.task,
             status: value
           })
-          this.$emit('onScrollUpdate')
         }
       }
+
     },
 
     methods: {
+
       timerRemove () {
         this.removing = true
         this.countdown = 5
@@ -121,26 +123,30 @@
           this.remove()
         }, this.countdown * 1000)
       },
+
       remove () {
         this.$store.commit('removeTasks', this.task)
-        this.$emit('onScrollUpdate')
       },
+
       stop () {
         this.removing = false
         clearInterval(this.$interval)
         clearTimeout(this.$timer)
       },
+
       blur (event) {
         if (this.task.isEmpty) {
           return this.remove()
         }
         this.isEdit = false
       }
+
     },
 
     beforeDestroy () {
       this.stop()
     }
+
   }
 </script>
 

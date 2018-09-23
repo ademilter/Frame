@@ -13,11 +13,10 @@
         :date="key"
         :events="events")
 
-
 </template>
 
 <script>
-  import EventDay from './event-day'
+  import EventDay from './day'
   import iconPlus from '@/icons/plus'
 
   export default {
@@ -80,6 +79,10 @@
   .Column {
     .event-group {
       margin-top: -15px;
+    }
+    &-body {
+      padding-left: 30px;
+      padding-right: 30px;
     }
   }
 </style>

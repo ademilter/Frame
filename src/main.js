@@ -7,10 +7,8 @@ import 'moment/locale/tr'
 
 import Draggable from 'vuedraggable'
 import VueQuillEditor from 'vue-quill-editor'
-import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
 Vue.component('Draggable', Draggable)
-Vue.component('VuePerfectScrollbar', VuePerfectScrollbar)
 Vue.use(VueQuillEditor, {})
 
 Vue.prototype.$moment = moment

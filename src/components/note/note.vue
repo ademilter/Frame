@@ -42,7 +42,18 @@
     data () {
       return {
         removing: false,
-        countdown: null
+        countdown: null,
+        editorOption: {
+          modules: {
+            toolbar: [
+              ['bold', 'italic', 'underline', 'strike'],
+              [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+              ['code', 'clean']
+            ]
+          },
+          placeholder: 'New note...',
+          theme: 'bubble'
+        }
       }
     },
 
@@ -63,10 +74,6 @@
             content: value
           })
         }
-      },
-
-      editorOption () {
-        return this.$store.state.editorOption
       }
     },
 

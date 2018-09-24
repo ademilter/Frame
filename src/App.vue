@@ -31,17 +31,18 @@
 
 <style>
   :root {
-    --border-radius: 4px;
-    --transition: 150ms;
+    --border-radius: 5px;
+    --transition: 130ms;
     --border-line-height: 1px;
     --border-line-color: rgba(0, 0, 0, .1);
     --color-note: #FFFBF2;
     --color-task: #21B663;
-    --color-calander: #FF3845;
+    --color-calander: #D9453D;
     --color-shadow: rgba(0, 0, 0, .1);
     --color-lighter: rgba(0, 0, 0, .2);
     --color-light: rgba(0, 0, 0, .5);
     --color-note-primary: #D3B41E;
+    --font-size-normal: 16px;
     --font-size-small: 14px;
   }
 
@@ -85,7 +86,7 @@
   }
 
   body {
-    font-size: 16px;
+    font-size: var(--font-size-normal);
     line-height: 1.4;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     color: #232323;
@@ -101,14 +102,15 @@
     align-items: center;
     padding-left: 12px;
     padding-right: 12px;
-    height: 40px;
+    padding-bottom: 2px; /* turkish charecter fix */
+    height: 38px;
     line-height: 1;
 
     .icon {
       margin-right: 3px;
     }
 
-    &.--small {
+    &.small {
       height: 30px;
 
       .icon {
@@ -130,7 +132,7 @@
   }
 
   .Header {
-    height: 120px;
+    height: 100px;
     flex-shrink: 0;
   }
 

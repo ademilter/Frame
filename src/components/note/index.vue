@@ -4,7 +4,7 @@
     .Column-header
       h3.title NOTE
       button(
-      class="btn --small new"
+      class="btn small new"
       type="button"
       @click="addNote")
         iconPlus

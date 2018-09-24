@@ -25,7 +25,6 @@ if (process.env.NODE_ENV === 'development') {
 
 if (store.state.notification === 'default') {
   Notification.requestPermission(function (permission) {
-    console.log(permission)
     store.commit('changeNotification', permission)
   })
 }

@@ -31,6 +31,8 @@
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    height: 80px;
+    flex-shrink: 0;
 
     .what-time-is {
       margin-right: 30px;
@@ -44,6 +46,7 @@
       }
 
       .date {
+        margin-top: 10px;
         font-size: 20px;
       }
     }

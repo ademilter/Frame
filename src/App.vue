@@ -131,11 +131,6 @@
     flex-direction: column;
   }
 
-  .Header {
-    height: 100px;
-    flex-shrink: 0;
-  }
-
   .Columns {
     height: 100%;
     grid-column: 1 / 2;

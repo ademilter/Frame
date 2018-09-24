@@ -1,16 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
+import httpCal from '../utils/http-calendar'
 import moment from 'moment'
 import { Note, Task, CalendarListItem, CalendarItem } from '../model'
 import { dummyCalendarList, dummyCalendarItems } from './dummy-data'
-import httpCal from '../utils/http-calendar'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
 
-  plugins: [createPersistedState()],
+  plugins: [createPersistedState({
+    key: 'FrameExtension'
+  })],
 
   state: {
     notes: [],

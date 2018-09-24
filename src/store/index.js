@@ -35,7 +35,7 @@ export default new Vuex.Store({
   },
 
   getters: {
-    hasToken: state => !!state.token,
+    hasToken: state => state.token !== null,
     allowNotification: state => state.notification === 'granted',
     hasActiveTasks: state => state.tasks.some(o => !o.status),
     hasCompletedTasks: state => state.tasks.some(o => o.status),

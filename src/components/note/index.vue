@@ -13,7 +13,7 @@
     .Column-body
 
       .empty-state(
-      v-if="!hasActiveTasks")
+      v-if="!hasNote")
         | Geçici notlarını buraya yaz ve unutma!
 
       Draggable(
@@ -56,6 +56,9 @@
         set (value) {
           this.$store.commit('updateNotes', value)
         }
+      },
+      hasNote () {
+        return this.$store.getters.hasNote
       }
     },
 

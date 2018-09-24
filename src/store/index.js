@@ -32,6 +32,7 @@ export default new Vuex.Store({
       return moment().startOf('hour').format('H') - moment(state.calendarLastUpdate).format('H') > 0
     },
     allowNotification: state => state.notification === 'granted',
+    hasNote: state => !!state.notes.length,
     hasActiveTasks: state => state.tasks.some(o => !o.status),
     hasCompletedTasks: state => state.tasks.some(o => o.status),
     eventsByDateGroup: state => {

@@ -5,6 +5,7 @@
   "manifest_version": 2,
   "applications": {
     "gecko": {
+      "client_id": "825939795126-t9v6behgpkvj2vfffgg960gvneqi5umn.apps.googleusercontent.com",
       "id": "Frame-ademilter@mozilla.org",
       "strict_min_version": "53a1"
     }
@@ -19,7 +20,7 @@
   },
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuOtWSnGxinGiZ3UZOur0f+6E1Ac29X9svVYwjzRi9AjOAcg5A6GgIkM8swJst1g6p9AojfphICj4mOMhZehb70b1oc9r9hwJxQ8al046sFg5IjFPVS5s7z9GjGlGtTdXaNaE7KZ/k8G9b945H/19tMW/HL6gWDeWQ+iXCOrMzvkMM/Iks6UbDae4awr/HiqZ2d5oAjeZlVE85SfUSnLEkEEapwY73JJD14gXXYZMhxtgfBHrVtablLo64/ujeMm53DtElrVTL2AaMirld2RjyvrpYU1AxkI81ljylQz0Tm/Lict+n3WuqYQnuSuvddFayciUo8KHeJ1J4skZa3AvXwIDAQAB",
   "oauth2": {
-    "client_id": "825939795126-t9v6behgpkvj2vfffgg960gvneqi5umn.apps.googleusercontent.com",
+    "client_id": "825939795126-mcce3h3b83llk6lid0fjds0b6age97k6.apps.googleusercontent.com",
     "scopes": [
       "https://www.googleapis.com/auth/calendar"
     ]

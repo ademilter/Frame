@@ -45,6 +45,12 @@ export default new Vuex.Store({
 
   actions: {
 
+    afterLogin ({ commit, dispatch }, token) {
+      commit('changeToken', token)
+      commit('setToken', token)
+      dispatch('getEventList')
+    },
+
     async getCalendarList ({ commit }) {
       const response = await httpCalendar.get('users/me/calendarList')
       commit('setCalendarList', response.data)

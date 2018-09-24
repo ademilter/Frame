@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build:chrome": "vue-cli-service build",
+    "build:firefox": "VUE_APP_PLATFORM=firefox vue-cli-service build"
   },
   "dependencies": {
     "autosize": "^4.0.2",

@@ -199,20 +199,4 @@
     }
 
   }
-
-  .ql-container {
-    font: inherit;
-
-    .ql-editor {
-      padding: 20px 0;
-      line-height: inherit;
-
-      &.ql-blank::before {
-        left: 0;
-        font-style: normal;
-        right: 0;
-      }
-    }
-  }
-
 </style>

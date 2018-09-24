@@ -31,11 +31,15 @@ export default new Vuex.Store({
     calendarList: [],
     calendarItems: [],
     token: null,
-    notification: 'default'
+    notification: 'default',
+    calendarLastUpdate: moment().startOf('hour')
   },
 
   getters: {
     hasToken: state => state.token !== null,
+    calendarDataExpire: state => {
+      return moment().startOf('hour').format('H') - moment(state.calendarLastUpdate).format('H') > 0
+    },
     allowNotification: state => state.notification === 'granted',
     hasActiveTasks: state => state.tasks.some(o => !o.status),
     hasCompletedTasks: state => state.tasks.some(o => o.status),
@@ -55,10 +59,8 @@ export default new Vuex.Store({
       commit('setCalendarList', response.data)
     },
 
-    async getEventList ({ state, dispatch, commit }) {
-      if (state.calendarList.length === 0) {
-        await dispatch('getCalendarList')
-      }
+    async getEventList ({ state, getters, dispatch, commit }) {
+      await dispatch('getCalendarList')
 
       const fromDate = moment()
       const toDate = moment().add(14, 'days')
@@ -79,6 +81,7 @@ export default new Vuex.Store({
 
       const response = await Promise.all(requestList)
       commit('setCalendarItems', response)
+      commit('updateCalendarLastUpdate')
     }
 
   },
@@ -95,6 +98,10 @@ export default new Vuex.Store({
 
     changeNotification (state, status) {
       state.notification = status
+    },
+
+    updateCalendarLastUpdate (state) {
+      state.calendarLastUpdate = moment().startOf('hour')
     },
 
     // NOTE

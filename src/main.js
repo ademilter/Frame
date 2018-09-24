@@ -20,7 +20,10 @@ new Vue({
 }).$mount('#app')
 
 if (store.getters.hasToken) {
-  getAuthToken()
+  store.commit('setToken', store.state.token)
+  if (store.getters.calendarDataExpire) {
+    store.dispatch('getEventList')
+  }
 }
 
 if (store.state.notification === 'default') {

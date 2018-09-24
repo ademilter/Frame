@@ -132,15 +132,14 @@
   }
 
   .Columns {
-    height: 100%;
-    grid-column: 1 / 2;
-    grid-row: 2 / 3;
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(auto-fill, minmax(calc(33% - 10px), 1fr));
+    flex-grow: 1;
+    display: flex;
+    margin-left: -20px;
   }
 
   .Column {
+    flex: 1 0 calc(33.33% - 20px);
+    margin-left: 20px;
     display: flex;
     flex-direction: column;
     background-color: #FFF;
@@ -174,6 +173,7 @@
     }
 
     &-body {
+      overflow: auto;
       flex-grow: 1;
       padding-bottom: 50px;
     }

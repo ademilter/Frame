@@ -15,21 +15,12 @@ export default new Vuex.Store({
   })],
 
   state: {
+    // data
     notes: [],
     tasks: [],
-    editorOption: {
-      modules: {
-        toolbar: [
-          ['bold', 'italic', 'underline', 'strike'],
-          [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-          ['code', 'clean']
-        ]
-      },
-      placeholder: 'New note...',
-      theme: 'bubble'
-    },
     calendarList: [],
     calendarItems: [],
+    // config
     token: null,
     notification: 'default',
     calendarLastUpdate: moment().startOf('hour')
@@ -102,6 +93,13 @@ export default new Vuex.Store({
 
     updateCalendarLastUpdate (state) {
       state.calendarLastUpdate = moment().startOf('hour')
+    },
+
+    moveOldData (state) {
+      const oldData = JSON.parse(localStorage.getItem('vuex'))
+      localStorage.removeItem('vuex')
+      state.notes = oldData.notes
+      state.tasks = oldData.tasks
     },
 
     // NOTE

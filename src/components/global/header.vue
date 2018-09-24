@@ -30,8 +30,7 @@
   .Header {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
-    height: 80px;
+    margin-bottom: 25px;
     flex-shrink: 0;
 
     .what-time-is {
@@ -42,11 +41,11 @@
 
       .time {
         font-weight: bold;
-        font-size: 50px;
+        font-size: 45px;
       }
 
       .date {
-        margin-top: 10px;
+        margin-top: 5px;
         font-size: 20px;
       }
     }

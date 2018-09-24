@@ -3,7 +3,6 @@ import App from './App'
 import store from './store'
 import moment from 'moment'
 import 'moment/locale/tr'
-import getAuthToken from './utils/get-token'
 
 import Draggable from 'vuedraggable'
 import VueQuillEditor from 'vue-quill-editor'
@@ -34,4 +33,9 @@ if (store.state.notification === 'default') {
 
 if (process.env.NODE_ENV === 'development') {
   store.commit('calSetDummyData')
+}
+
+// TEMP
+if (localStorage.getItem('vuex')) {
+  store.commit('moveOldData')
 }

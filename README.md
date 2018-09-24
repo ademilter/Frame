@@ -29,6 +29,7 @@ yarn build:firefox  # Build the extension code so it's ready for Firefox
 ## Maintainers
 
 - [Adem ilter](https://github.com/ademilter)
+- [Nazım Can Altınova](https://github.com/canaltinova)
 
 ## License
 

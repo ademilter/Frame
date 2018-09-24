@@ -9,6 +9,7 @@
     v-if="!removing"
     @click="timerRemove")
       iconRemove
+
     button.stop(
     type="button"
     v-if="removing"
@@ -18,7 +19,10 @@
     quill-editor(
     ref="editor"
     v-model="content"
+    @blur="onEditorBlur"
+    @focus="onEditorFocus"
     :options="editorOption")
+
 </template>
 
 <script>
@@ -68,6 +72,14 @@
 
     methods: {
 
+      onEditorFocus () {
+        this.$el.classList.add('focus')
+      },
+
+      onEditorBlur () {
+        this.$el.classList.remove('focus')
+      },
+
       timerRemove () {
         this.removing = true
         this.countdown = 5
@@ -95,10 +107,14 @@
 
 <style>
   .note {
+    position: relative;
     padding-left: 30px;
     padding-right: 30px;
-    position: relative;
     background-color: var(--color-note);
+
+    &.focus {
+      z-index: 1;
+    }
 
     &:not(:last-child):after {
       content: "";

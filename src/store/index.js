@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
-import httpCal from '../utils/http-calendar'
+import httpCalendar from '../utils/http-calendar'
 import moment from 'moment'
 import { Note, Task, CalendarListItem, CalendarItem } from '../model'
 import { dummyCalendarList, dummyCalendarItems } from './dummy-data'
@@ -51,7 +51,7 @@ export default new Vuex.Store({
   actions: {
 
     async getCalendarList ({ commit }) {
-      const response = await httpCal.get('users/me/calendarList')
+      const response = await httpCalendar.get('users/me/calendarList')
       commit('setCalendarList', response.data)
     },
 
@@ -74,7 +74,7 @@ export default new Vuex.Store({
           '&orderBy=startTime',
           '&singleEvents=true'
         ].join('')
-        return httpCal.get(url)
+        return httpCalendar.get(url)
       })
 
       const response = await Promise.all(requestList)
@@ -90,7 +90,7 @@ export default new Vuex.Store({
     },
 
     setToken (state, token) {
-      httpCal.defaults.headers.common.Authorization = `Bearer ${token}`
+      httpCalendar.defaults.headers.common.Authorization = `Bearer ${token}`
     },
 
     changeNotification (state, status) {

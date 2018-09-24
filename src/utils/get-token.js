@@ -1,6 +1,18 @@
 /* global chrome */
-import httpCal from './http-calendar'
+import httpCalendar from './http-calendar'
 import store from '../store'
+
+// Setting up an interceptor in case of a token
+// expiration or unsuccessful authentication.
+httpCalendar.interceptors.response.use(null, error => {
+  if (error.response.status === 401) {
+    if (store.getters.hasToken) {
+      store.commit('changeToken', null)
+      getAuthToken()
+    }
+  }
+  return Promise.reject(error)
+})
 
 const authUrl = () => {
   const manifest = chrome.runtime.getManifest()
@@ -38,16 +50,6 @@ const getAuthToken = () => {
       store.commit('changeToken', token)
       store.commit('setToken', token)
       store.dispatch('getEventList')
-
-      // Setting up an interceptor in case of a token expiration or unsuccessful
-      // authentication.
-      httpCal.interceptors.response.use(null, error => {
-        if (error.status === 401) {
-          store.dispatch('changeToken', null)
-          getAuthToken()
-        }
-        return Promise.reject(error)
-      })
     })
   }
 }

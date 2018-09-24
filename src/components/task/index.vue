@@ -1,5 +1,5 @@
 <template lang="pug">
-  .Column.Tasks
+  .Column
 
     .Column-header
       h3.title TASK

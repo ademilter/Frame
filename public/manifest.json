@@ -1,12 +1,12 @@
 {
   "name": "Frame",
-  "version": "1.3",
+  "version": "1.4",
   "description": "",
   "manifest_version": 2,
   "applications": {
     "gecko": {
-      "id": "Frame-ademilter@mozilla.org",
-      "strict_min_version": "53a1"
+      "id": "{2e7abee6-b580-4813-8b57-cd2d2b7255cb}",
+      "strict_min_version": "55.0"
     }
   },
   "chrome_url_overrides": {

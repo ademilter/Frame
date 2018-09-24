@@ -12,6 +12,10 @@
 
     .Column-body
 
+      .empty-state(
+      v-if="!hasActiveTasks")
+        | Geçici notlarını buraya yaz ve unutma!
+
       Draggable(
       v-model="notes"
       @start="onDragStart"

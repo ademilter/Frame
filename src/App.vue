@@ -197,6 +197,15 @@
         color: var(--color-lighter);
       }
     }
+  }
 
+  .empty-state {
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    color: var(--color-light);
+    border: 2px dashed var(--color-shadow);
+    border-radius: var(--border-radius);
   }
 </style>

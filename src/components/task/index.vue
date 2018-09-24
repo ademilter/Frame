@@ -14,9 +14,9 @@
 
       .active-tasks
 
-        //.empty-state(
-          v-if="!hasActiveTasks")
-            | Çiçek gibi, yapılacak iş yok!
+        .empty-state(
+        v-if="!hasActiveTasks")
+          | Yapacak hiç bir işin yok mu yani?
 
         Draggable(
         v-if="hasActiveTasks"
@@ -33,11 +33,8 @@
           :class="{ 'completed' : task.status }"
           :task="task")
 
-      .completed-tasks
-
-        //.empty-state(
-          v-if="!hasCompletedTasks")
-            | Çiçek gibi, yapılacak iş yok!
+      .completed-tasks(
+      v-if="hasCompletedTasks")
 
         task(
         v-for="task in tasks"

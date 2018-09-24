@@ -101,6 +101,7 @@
     }
 
     .loginWithGoogle {
+      margin-left: 30px;
       border-radius: var(--border-radius);
       color: white;
       background-color: var(--color-calander);

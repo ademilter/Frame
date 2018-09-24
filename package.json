@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "yarn run build:chrome && yarn run build:firefox",
-    "build:chrome": "vue-cli-service build --dest dist/chrome",
-    "build:firefox": "VUE_APP_PLATFORM=firefox vue-cli-service build --dest dist/firefox"
+    "build": "yarn run build:chrome && yarn run build:firefox && yarn run clear",
+    "build:chrome": "vue-cli-service build --dest dist/chrome && yarn run zip:chrome",
+    "build:firefox": "VUE_APP_PLATFORM=firefox vue-cli-service build --dest dist/firefox && yarn run zip:firefox",
+    "zip:chrome": "bestzip dist/chrome.zip dist/chrome/*",
+    "zip:firefox": "bestzip dist/firefox.zip dist/firefox/*",
+    "clear": "rimraf dist/chrome/ && rimraf dist/firefox/"
   },
   "dependencies": {
     "autosize": "^4.0.2",
@@ -23,6 +26,7 @@
     "@vue/cli-plugin-eslint": "^3.0.0-beta.15",
     "@vue/cli-service": "^3.0.0-beta.15",
     "@vue/eslint-config-standard": "^3.0.0-rc.3",
+    "bestzip": "^2.1.1",
     "moment-locales-webpack-plugin": "^1.0.7",
     "postcss-nested": "^3.0.0",
     "postcss-sorting": "^3.1.0",

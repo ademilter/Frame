@@ -7,7 +7,7 @@ const authUrl = () => {
   console.info('redirect url', redirectUrl)
   return [
     'https://accounts.google.com/o/oauth2/auth',
-    '?client_id=' + manifest.applications.gecko.client_id,
+    '?client_id=' + manifest.oauth2.client_id_firefox,
     '&response_type=token',
     '&redirect_uri=' + encodeURIComponent(redirectUrl),
     '&scope=' + manifest.oauth2.scopes.join(',')

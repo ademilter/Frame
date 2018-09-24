@@ -11,6 +11,7 @@ Vue.component('Draggable', Draggable)
 Vue.use(VueQuillEditor, {})
 
 Vue.prototype.$moment = moment
+Vue.prototype.$isDev = process.env.NODE_ENV === 'development'
 Vue.config.productionTip = false
 
 new Vue({
@@ -31,7 +32,7 @@ if (store.state.notification === 'default') {
   })
 }
 
-if (process.env.NODE_ENV === 'development') {
+if (Vue.prototype.$isDev) {
   store.commit('calSetDummyData')
 }
 

@@ -1,13 +1,13 @@
 <template lang="pug">
-  .Column.Calendar
+  .Column
 
     .Column-header
       h3.title CALENDAR
 
     .Column-body
 
-      table.event-group(
-      v-if="hasToken")
+      .event-group(
+      v-if="hasToken || $isDev")
         EventDay(
         v-for="(events, key) in eventsByDateGroup"
         :key="key"
@@ -93,22 +93,18 @@
 
 <style scoped>
   .Column {
+
     &-header {
       .new {
         background-color: var(--color-calander);
       }
     }
-    &-body {
-      padding-left: 30px;
-      padding-right: 30px;
-    }
-    .event-group {
-      margin-top: -15px;
-    }
+
     .loginWithGoogle {
       border-radius: var(--border-radius);
       color: white;
       background-color: var(--color-calander);
     }
+
   }
 </style>

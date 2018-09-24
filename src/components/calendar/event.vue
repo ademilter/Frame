@@ -1,5 +1,5 @@
 <template lang="pug">
-  .Event
+  .event-item
     h4
       | {{ event.summary }}
     p
@@ -29,22 +29,9 @@
 </script>
 
 <style scoped>
-  .event-day {
-    vertical-align: top;
+  .event-item {
     & + & {
-      td {
-        border-top: 1px solid var(--border-line-color);
-      }
-    }
-
-    td {
-      padding-top: 15px;
-      padding-bottom: 15px;
-
-      &.event-date {
-        padding-right: 20px;
-        white-space: nowrap;
-      }
+      margin-top: 20px;
     }
   }
 </style>

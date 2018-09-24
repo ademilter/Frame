@@ -6,16 +6,24 @@
 
     .Column-body
 
-      table.event-group
+      table.event-group(
+      v-if="hasToken")
         EventDay(
         v-for="(events, key) in eventsByDateGroup"
         :key="key"
         :date="key"
         :events="events")
 
+      button.loginWithGoogle.btn(
+      type="button"
+      @click="login"
+      v-else
+      ) Google ile giriş yap
+
 </template>
 
 <script>
+  import getAuthToken from '@/utils/get-token'
   import EventDay from './day'
   import iconPlus from '@/icons/plus'
 
@@ -48,10 +56,14 @@
       },
       eventsByDateGroup () {
         return this.$store.getters.eventsByDateGroup
+      },
+      hasToken () {
+        return this.$store.getters.hasToken
       }
     },
 
     methods: {
+
       checkEvents () {
         // TODO: maybe need to refactor
         this.calendarItems.forEach(event => {
@@ -69,6 +81,10 @@
             }
           }
         })
+      },
+
+      login () {
+        getAuthToken()
       }
     }
 
@@ -77,12 +93,22 @@
 
 <style scoped>
   .Column {
-    .event-group {
-      margin-top: -15px;
+    &-header {
+      .new {
+        background-color: var(--color-calander);
+      }
     }
     &-body {
       padding-left: 30px;
       padding-right: 30px;
+    }
+    .event-group {
+      margin-top: -15px;
+    }
+    .loginWithGoogle {
+      border-radius: var(--border-radius);
+      color: white;
+      background-color: var(--color-calander);
     }
   }
 </style>

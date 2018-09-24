@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build:chrome": "vue-cli-service build",
-    "build:firefox": "VUE_APP_PLATFORM=firefox vue-cli-service build"
+    "build": "yarn run build:chrome && yarn run build:firefox",
+    "build:chrome": "vue-cli-service build --dest dist/chrome",
+    "build:firefox": "VUE_APP_PLATFORM=firefox vue-cli-service build --dest dist/firefox"
   },
   "dependencies": {
     "autosize": "^4.0.2",

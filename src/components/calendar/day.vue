@@ -8,25 +8,25 @@
         small {{ $moment(date).format('D MMMM YYYY') }}
 
     td.event-list
-      div.Event(
+      Event(
       v-for="event in events"
-      :key="event.id")
-        h4
-          | {{ event.summary }}
-        p
-          small {{ event.location }}
-        p
-          small {{ event.time }}
+      :key="event.id"
+      :event="event")
 
 </template>
 
 <script>
+  import Event from './event'
+
   export default {
     name: 'event-day',
     props: [
       'date',
       'events'
     ],
+    components: {
+      Event
+    },
     computed: {
       isToday () {
         return this.$moment().isSame(this.$moment(this.date), 'day')

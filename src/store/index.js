@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import httpCalendar from '../utils/http-calendar'
 import moment from 'moment'
-import { Note, Task, CalendarListItem, CalendarItem } from '../model'
+import { Note, Task } from '../model'
 import { dummyCalendarList, dummyCalendarItems } from './dummy-data'
 
 Vue.use(Vuex)
@@ -139,18 +139,18 @@ export default new Vuex.Store({
     // CALENDAR
 
     calSetDummyData (state) {
-      state.calendarList = dummyCalendarList().map(item => new CalendarListItem(item))
-      state.calendarItems = dummyCalendarItems().map(event => new CalendarItem(event))
+      state.calendarList = dummyCalendarList()
+      state.calendarItems = dummyCalendarItems()
     },
 
     setCalendarList (state, data) {
-      state.calendarList = data.items.map(item => new CalendarListItem(item))
+      state.calendarList = data.items
     },
 
     setCalendarItems (state, items) {
       const data = items.map(item => item.data)
       const events = data.map(calendar => calendar.items)
-      state.calendarItems = events.flat().map(event => new CalendarItem(event))
+      state.calendarItems = events.flat()
     }
   }
 

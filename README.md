@@ -7,7 +7,7 @@ New-tab extension for Chrome and Firefox
 ## Install
 
 - [**Chrome** extension](https://chrome.google.com/webstore/detail/frame/pimalalkfhkmnlhoapdlhilkghboiimc)
-- **Firefox** extension link will be provided soon.
+- [**Firefox** extension](https://addons.mozilla.org/tr/firefox/addon/new-tab-frame/)
 
 ## Contribute
 

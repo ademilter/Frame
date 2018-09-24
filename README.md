@@ -21,9 +21,9 @@ Please follow the below steps:
 git clone https://github.com/ademilter/frame
 cd frame
 yarn    # Install dev dependencies
-yarn build  # Build the extension code so it's ready for Chrome
-yarn build-firefox  # Build the extension code so it's ready for Firefox
 yarn serve  # Listen for file changes and automatically rebuild
+yarn build:chrome  # Build the extension code so it's ready for Chrome
+yarn build:firefox  # Build the extension code so it's ready for Firefox
 ```
 
 ## Maintainers

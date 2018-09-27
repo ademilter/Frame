@@ -17,10 +17,15 @@
     },
 
     created () {
-      setInterval(() => {
+      this.setTime()
+      setInterval(this.setTime, 1000)
+    },
+
+    methods: {
+      setTime () {
         this.time = this.$moment().format('HH:mm')
-        this.date = this.$moment().format('dddd, D MMMM YYYY')
-      })
+        this.date = this.$moment().format('D MMMM YYYY, dddd')
+      }
     }
 
   }

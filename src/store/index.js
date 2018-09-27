@@ -35,6 +35,7 @@ export default new Vuex.Store({
     hasNote: state => !!state.notes.length,
     hasActiveTasks: state => state.tasks.some(o => !o.status),
     hasCompletedTasks: state => state.tasks.some(o => o.status),
+    hasCalenderItem: state => !!state.calendarItems.length,
     eventsSortAndGroupBy: state => {
       const sortDates = {}
       // groupBy

@@ -3,11 +3,17 @@
 
     .Column-header
       h3.title CALENDAR
+      button(
+      class="btn small new"
+      type="button"
+      @click="refresh")
+        iconRefresh
+        span Refresh
 
     .Column-body
 
       .event-group(
-      v-if="hasToken || $isDev")
+      v-if="hasCalenderItem || hasToken")
         EventDay(
         v-for="(events, key) in eventsSortAndGroupBy"
         :key="key"
@@ -25,14 +31,14 @@
 <script>
   import getAuthToken from '@/utils/get-token'
   import EventDay from './day'
-  import iconPlus from '@/icons/plus'
+  import iconRefresh from '@/icons/refresh'
 
   export default {
     name: 'Calendar',
 
     components: {
       EventDay,
-      iconPlus
+      iconRefresh
     },
 
     data () {
@@ -42,15 +48,18 @@
     },
 
     mounted () {
-      if (this.$store.getters.allowNotification) {
-        this.checkEvents()
-        setInterval(() => {
-          this.checkEvents()
-        }, 1800000) // 30 minute
-      }
+      // if (this.$store.getters.allowNotification) {
+      //   this.checkEvents()
+      //   setInterval(() => {
+      //     this.checkEvents()
+      //   }, 1800000) // 30 minute
+      // }
     },
 
     computed: {
+      hasCalenderItem () {
+        return this.$store.getters.hasCalenderItem
+      },
       calendarItems () {
         return this.$store.state.calendarItems
       },
@@ -85,7 +94,12 @@
 
       login () {
         getAuthToken()
+      },
+
+      refresh () {
+        this.$store.dispatch('getEventList')
       }
+
     }
 
   }

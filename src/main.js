@@ -21,22 +21,22 @@ new Vue({
 
 if (store.getters.hasToken) {
   store.commit('setToken', store.state.token)
-  if (store.getters.calendarDataExpire) {
-    store.dispatch('getEventList')
-  }
+  // if (store.getters.calendarDataExpire) {
+  //   store.dispatch('getEventList')
+  // }
 }
 
-if (store.state.notification === 'default') {
-  Notification.requestPermission(function (permission) {
-    store.commit('changeNotification', permission)
-  })
-}
+// if (store.state.notification === 'default') {
+//   Notification.requestPermission(function (permission) {
+//     store.commit('changeNotification', permission)
+//   })
+// }
 
 if (Vue.prototype.$isDev) {
   store.commit('calSetDummyData')
 }
 
-// TEMP
+// DEV
 if (localStorage.getItem('vuex')) {
   store.commit('moveOldData')
 }

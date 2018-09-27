@@ -102,7 +102,7 @@
     align-items: center;
     padding-left: 12px;
     padding-right: 12px;
-    padding-bottom: 2px; /* turkish charecter fix */
+    padding-bottom: 1px; /* turkish charecter fix */
     height: 38px;
     line-height: 1;
 
@@ -154,7 +154,7 @@
       padding: 30px;
 
       .title {
-        font-size: 28px;
+        font-size: 25px;
         line-height: 1;
       }
 
@@ -167,7 +167,10 @@
         text-decoration: none;
 
         .icon {
-          margin-left: -6px;
+          margin-left: -4px;
+          margin-right: 3px;
+          width: 18px;
+          height: 18px;
         }
       }
     }

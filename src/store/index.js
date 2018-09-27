@@ -35,12 +35,21 @@ export default new Vuex.Store({
     hasNote: state => !!state.notes.length,
     hasActiveTasks: state => state.tasks.some(o => !o.status),
     hasCompletedTasks: state => state.tasks.some(o => o.status),
-    eventsByDateGroup: state => {
-      return state.calendarItems.reduce((acc, obj) => {
-        const key = moment(obj.start.date || obj.start.dateTime).toISOString();
+    eventsSortAndGroupBy: state => {
+      const sortDates = {}
+      // groupBy
+      const groupBy = state.calendarItems.reduce((acc, obj) => {
+        const key = moment(obj.start.date || obj.start.dateTime).format('YYYY-MM-DD');
         (acc[key] || (acc[key] = [])).push(obj)
         return acc
       }, {})
+      // sort by timestamp and move new object
+      Object.keys(groupBy).sort((a, b) => {
+        return moment(a).format('X') - moment(b).format('X')
+      }).forEach(key => {
+        sortDates[key] = groupBy[key]
+      })
+      return sortDates
     }
   },
 

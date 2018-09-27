@@ -9,7 +9,7 @@
       .event-group(
       v-if="hasToken || $isDev")
         EventDay(
-        v-for="(events, key) in eventsByDateGroup"
+        v-for="(events, key) in eventsSortAndGroupBy"
         :key="key"
         :date="key"
         :events="events")
@@ -54,8 +54,8 @@
       calendarItems () {
         return this.$store.state.calendarItems
       },
-      eventsByDateGroup () {
-        return this.$store.getters.eventsByDateGroup
+      eventsSortAndGroupBy () {
+        return this.$store.getters.eventsSortAndGroupBy
       },
       hasToken () {
         return this.$store.getters.hasToken

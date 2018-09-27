@@ -167,6 +167,30 @@ export const dummyCalendarItems = () => {
       'status': 'confirmed',
       'summary': 'Dolunay 05:53',
       'updated': '2008-11-18T00:00:00.000Z'
+    },
+    {
+      'created': '2008-11-18T00:00:00.000Z',
+      'creator': {
+        'email': 'ht3jlfaac5lfd6263ulfh4tql8@group.calendar.google.com',
+        'displayName': 'Phases of the Moon',
+        'self': true
+      },
+      'end': { 'date': '2018-09-20' },
+      'etag': '"2453932800000000"',
+      'htmlLink': 'https://www.google.com/calendar/event?eid=bW9vbnBoYXNlKzE1Mzc4NDM5ODAwMDAgaHQzamxmYWFjNWxmZDYyNjN1bGZoNHRxbDhAZw',
+      'iCalUID': 'moonphase+1537843980000@google.com',
+      'id': 'moonphase+1537843980000',
+      'kind': 'calendar#event',
+      'organizer': {
+        'email': 'ht3jlfaac5lfd6263ulfh4tql8@group.calendar.google.com',
+        'displayName': 'Phases of the Moon',
+        'self': true
+      },
+      'sequence': 0,
+      'start': { 'date': '2018-09-20' },
+      'status': 'confirmed',
+      'summary': 'Dolunay 05:53',
+      'updated': '2008-11-18T00:00:00.000Z'
     }
   ]
 }

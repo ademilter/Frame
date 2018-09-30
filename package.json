@@ -7,8 +7,8 @@
     "build": "yarn run build:chrome && yarn run build:firefox && yarn run clear",
     "build:chrome": "vue-cli-service build --dest dist/chrome && yarn run zip:chrome",
     "build:firefox": "VUE_APP_PLATFORM=firefox vue-cli-service build --dest dist/firefox && yarn run zip:firefox",
-    "zip:chrome": "bestzip dist/chrome.zip dist/chrome/*",
-    "zip:firefox": "bestzip dist/firefox.zip dist/firefox/*",
+    "zip:chrome": "cd dist/chrome/ && bestzip ../chrome.zip **",
+    "zip:firefox": "cd dist/firefox/ && bestzip ../firefox.zip **",
     "clear": "rimraf dist/chrome/ && rimraf dist/firefox/"
   },
   "dependencies": {

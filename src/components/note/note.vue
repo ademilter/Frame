@@ -46,9 +46,8 @@
         editorOption: {
           modules: {
             toolbar: [
-              ['bold', 'italic', 'underline', 'strike'],
-              [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-              ['code', 'clean']
+              ['bold', 'italic', 'link'],
+              [{ 'list': 'bullet' }, 'code', 'clean']
             ]
           },
           placeholder: 'New note...',

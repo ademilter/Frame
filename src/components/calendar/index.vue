@@ -97,6 +97,9 @@
       },
 
       refresh () {
+        if (!this.$store.getters.hasToken) {
+          return this.login()
+        }
         this.$store.dispatch('getEventList')
       }
 

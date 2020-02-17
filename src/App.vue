@@ -134,6 +134,7 @@
   .Columns {
     flex-grow: 1;
     display: flex;
+    overflow: auto;
     margin-left: -20px;
   }
 
@@ -142,6 +143,7 @@
     margin-left: 20px;
     display: flex;
     flex-direction: column;
+    overflow: auto;
     background-color: #FFF;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
     border-radius: 10px;
